@@ -1,0 +1,106 @@
+*{
+    box-sizing: border-box;
+}
+
+html{
+    font-family: 'Montserrat', sans-serif;
+    height: 100%;
+}
+
+body{
+    height: 100%;
+    background-color: #ebeae6;
+}
+
+nav{
+    text-align: right;
+    position: sticky;
+    top: 1.5rem;
+    right: 3rem;
+}
+
+a{
+    padding: 0 1.5rem 0 1.5rem;
+    color: black;
+    text-decoration: none;
+}
+
+main{
+    height: 100%;
+    display: flex;
+    justify-content:space-around;
+}
+
+.container{
+    height: 100%;
+    width: 60%;
+
+    display: flex;
+    justify-content: space-evenly;
+}
+
+h1{
+    font-family: arbotek, sans-serif;
+    font-style: normal;
+    font-size: 3.5rem; 
+    color: white;
+    
+    position: absolute;
+    top: 44%;
+}
+.logo-login{
+    width:15rem;
+    height: 15rem;
+    object-fit:cover;
+    object-position: top ;
+    border-radius: 100%;
+}
+
+.container-head{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.container-main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    width: 50%;
+}
+
+input.textf{
+    width: 75%;;
+}
+
+input.btn{
+    width: 60%;
+}
+
+form{
+    min-width: 20rem;
+}
+
+input {
+    padding: 0.5rem 1rem;
+    margin: 1px;
+    border-radius: 5px;
+    border: 2px solid #ccc;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+  }
+  
+input:focus {
+border: 2px solid #555;
+}
+
+.cleartext{
+    font-size: 0.6em;
+}
+
+
+

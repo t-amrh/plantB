@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Plant B</title>
+        <link rel="stylesheet" href="/css/style-home.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com"> 
+        <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Montserrat&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.typekit.net/tal5phu.css">
+    </head>
+    <body>
+        <nav>
+            <a href="">Suche</a>
+            |
+            <% if(typeof username == 'undefined'){ %>
+                <a href="/login">Login</a>
+                |
+                <a href="/register">Registrieren</a>
+            <% }else{ %>
+                <a href="/profile">Profil von <%=username%></a>
+                |
+                <a href="/logout">Logout</a>
+            <% }; %>
+        </nav>
+        
+        <header>
+            <div class="container-head">
+                <h1>Plant B</h1>
+                <!--
+                <a href="/">
+                    <img class="logo-login" src="/images/greenleavesbg.jpg" alt="">
+                </a>-->
+            </div>
+            <div class="container-subhead">
+                <p>KEEPING PLANTS ALIVE</p>
+            </div>
+        </header>
+
+        <main>
+
+            <div class="container-main">
+                <h3>Herzlich Willkommen bei Plant B</h3>
+                <p>Hier kannst Du Fragen stellen, Hilfe suchen oder andere von deinem Wissen profitieren lassen. </p>
+                <br>
+                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.   
+                </p>
+                <p>
+                    Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.   
+                </p>  
+                <p>
+                    Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.   
+                </p>  
+                <p>    
+                    Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer</p>
+                </p>      
+            </div>
+        </main>  
+    </body>
+</html>

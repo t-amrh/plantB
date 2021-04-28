@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Plant B - Login</title>
+        <link rel="stylesheet" href="/css/style-logreg.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com"> 
+        <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Montserrat&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.typekit.net/tal5phu.css">
+    </head>
+    <body>
+        <nav>
+            <a href="/">Zurück</a>
+            |
+            <a href="/register">Registrieren</a>
+        </nav>
+        <main>
+            <div class="container">
+            <div class="container-head">
+                <h1>Plant B</h1>
+                <a href="/">
+                    <img class="logo-login" src="/images/leavesbg.jpg" alt="">
+                </a>
+            </div>
+            <div class="container-main">
+                <h2>Login</h2>
+                <form action="/login" method="POST">
+                    <input type="text" name="username" id="" class="textf" placeholder="Name" value="<%= typeof username != 'undefined' ? username : '' %>">
+                    <input type="password" name="password" class="textf" id="password" placeholder="Passwort">
+                   <div>
+                        <input type="checkbox" name="cleartext" id="cleartext" onchange="show_pw('password');">
+                        <label for="cleartext"> 
+                            <span class="cleartext">Passwort anzeigen</span>
+                        </label>
+                    </div>
+
+                    <div class="error-msg">
+                        <p><%= typeof err_msg != 'undefined' ? err_msg : '' %></p>
+                    </div>
+                    
+                    <input type="submit" class="btn" name="login" id="" value="Anmelden">
+                </form>
+            </div>
+        </div>
+        </main>  
+        <script src="/scripts/register.js"></script>
+    </body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Plant B</title>
+        <link rel="stylesheet" href="/css/style-logreg.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com"> 
+        <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Montserrat&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.typekit.net/tal5phu.css">
+    </head>
+    <body>
+        <nav>
+            <a href="/home">Home</a>
+            |
+            <a href="">Suche</a>
+            |
+            <a href="/welcome">Übersicht</a>
+            |
+            <a href="/logout">Logout</a>
+        </nav>
+        <main>
+            <div class="container">
+            <div class="container-head">
+                <h1>Plant B</h1>
+                <img class="logo-login" src="/images/leavesbg.jpg" alt="">
+            </div>
+        
+            <div class="container-main">
+                <% if (task == 'overview') { %>
+                    <%- include('partials/profile/overview'); %>
+                <% } else if (task == 'change_pw') { %>
+                    <%- include('partials/profile/change_pw'); %>
+                <% } else if (task == 'delete_user') { %>
+                    <%- include('partials/profile/delete_user'); %>   
+                <% } %> 
+            </div>
+        </div>
+        </main>  
+        <script src="/scripts/register.js"></script>
+    </body>
+</html>

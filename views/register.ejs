@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant B - Login</title>
+    <link rel="stylesheet" href="/css/style-logreg.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com"> 
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.typekit.net/tal5phu.css">
+</head>
+<body>
+    <nav>
+        <a href="/">Zurück</a>
+        |
+        <a href="/login">Login</a>
+    </nav>
+    <main>
+    
+        <div class="container">
+
+        <div class="container-head">
+            <h1>Plant B</h1>
+            <a href="/">
+                <img class="logo-login" src="/images/leavesbg.jpg" alt="">
+            </a>
+        </div>
+   
+   
+        <div class="container-main">
+            <h2>Registrieren</h2>
+           
+            <form action="/register" method="POST">
+                <input class="textf" type="text" name="email" id="" placeholder="Email" value="<%= typeof context != 'undefined' ? context.email : '' %>">
+                
+                <input class="textf" type="text" name="username" id="" placeholder="Name" value="<%= typeof context != 'undefined' ? context.username : '' %>">
+                
+                <input class="textf" type="password" name="password" id="password" placeholder="Passwort" oninput="eval_pw();" value="<%= typeof context != 'undefined' ? context.password : '' %>">
+                
+                <input class="textf" type="password" name="passwordrep" id="passwordrep" placeholder="Passwort wiederholen" oninput="eval_pw();">
+                
+                <div>
+                    <input type="checkbox" name="cleartext" id="cleartext" onchange="show_pw('password'); show_pw('passwordrep');">
+                    <label for="cleartext">
+                        <span class="cleartext">Passwort anzeigen</span>
+                    </label>
+                </div>
+                <div class="error-msg">
+                <p><%= typeof err_msg != 'undefined' ? err_msg : '' %></p>
+                </div>
+                <input type="submit" class="btn" name="register" id="" value="Registrieren">
+            </form>
+        </div>
+    </div>
+       
+    </main>  
+    <script src="/scripts/register.js"></script>
+</body>
+</body>
+</html>

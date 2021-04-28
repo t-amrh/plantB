@@ -1,0 +1,105 @@
+*{
+    box-sizing: border-box;
+    color: white;
+}
+
+html{
+    background: url(/images/leavesbg.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-attachment: fixed;
+
+    font-family: 'Montserrat', sans-serif;
+}
+
+nav{
+    text-align: right;
+   
+    position: sticky;
+    top: 1.5rem;
+    right: 3rem;
+}
+
+a{
+    padding: 0 1.5rem 0 1.5rem;
+    color: white;
+    text-decoration: none;
+}
+
+header{
+    width: 100%;
+    height: 50em;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.container-head{
+    width: 25%;
+    min-width: 250px;
+    border-bottom:  solid 1px white;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+}
+
+.container-subhead{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+h1{
+    font-family: arbotek, sans-serif;
+    font-style: normal;
+    font-size: 3.5rem;    
+}
+
+.logo-main{
+    width:90%;
+    height: 150px;
+    object-fit: cover;
+    object-position: top ;
+    border-radius: 10px;
+}
+
+.logo-login{
+    width:150px;
+    height: 150px;
+    object-fit: cover;
+    object-position: top ;
+    border-radius: 100%;
+}
+
+
+
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+  
+}
+
+.container-main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 50%;
+    margin: 10rem;
+}
+
+input{
+    margin: 1px;
+}
+
+.cleartext{
+    font-size: 0.7em;
+}
