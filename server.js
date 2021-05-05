@@ -27,6 +27,9 @@ app.use(session({
     cookie: {maxAge: 60*60*1000}
 }));
 
+//initializing password hashing
+const passwordHash = require('password-hash');
+
 //static files
 app.use(express.static(__dirname + '/public'));
 
@@ -93,11 +96,13 @@ app.post('/login',
             console.log('Connected to database');
         });
 
-        let sql = `SELECT name, pw FROM users WHERE name=?`;
+        //const hash = passwordHash.generate(req.body.password);
+        let sql = `SELECT pw FROM users WHERE name=?`;
         db.get(sql, [req.body.username], (err,row) => {
             if (err) {console.error(err.message)};
 
-            if (row && (row.pw == req.body.password)) {
+
+            if (row && (passwordHash.verify(req.body.password, row.pw) ) ){
                 next();
             }
             else{
@@ -159,8 +164,9 @@ app.post('/register',
                 res.render('register', {err_msg: "Benutzername existiert bereits", context: req.context});
             }
             else{
+                const hash = passwordHash.generate(req.context.password);
                 let sql = `INSERT INTO users (name, pw) VALUES (?,?)`;
-                db.run(sql, [req.context.username, req.context.password], (err) => {
+                db.run(sql, [req.context.username, hash], (err) => {
                     if (err){console.err(err.message)};
                 });
                 next();
@@ -207,12 +213,13 @@ app.post('/change_pw',
         db.get(sql, [req.session.loggedIn.username], (err,row) => {
             if (err){console.error(err.message)};
 
-            if (! row){
+            if (! passwordHash.verify(req.body.pw_old, row.pw)){
                 res.render('profile', {task: 'change_pw', err_msg: "Altes Passwort falsch"});
             }
             else{
+                const hash = passwordHash.generate(req.body.pw_new);
                 let sql = `UPDATE users SET pw=? WHERE name=?`;
-                db.run(sql, [req.body.pw_new, req.session.loggedIn.username], (err) => {
+                db.run(sql, [hash, req.session.loggedIn.username], (err) => {
                     if (err){console.err(err.message)};
                 });
                 next();
@@ -238,8 +245,8 @@ app.post('/delete_user',
         let sql = `SELECT pw FROM users WHERE name=?`;
         db.get(sql, [req.session.loggedIn.username], (err,row) => {
             if (err){console.error(err.message)};
-            
-            if (req.body.password == row.pw){
+                      
+            if (passwordHash.verify(req.body.password, row.pw)){
                 sql = `DELETE FROM users WHERE name=?`;
                 db.run(sql, [req.session.loggedIn.username], (err) => {
                     if (err) {console.err(err.message)};
