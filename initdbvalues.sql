@@ -5,7 +5,9 @@ VALUES
 ;
 
 INSERT INTO posts 
-    (userid, title, txt)
+    (tstamp, userid, title, txt)
 VALUES
-    (1, "First posts", "This is my first post")
+    (datetime('now', 'localtime'), 2, "blah", "blahblah")
 ;
+
+
