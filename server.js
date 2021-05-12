@@ -94,6 +94,35 @@ app.get('/create_question', (req,res) => {
     res.render('create_question', {});
 });
 
+
+// create_question POST handling
+
+
+
+app.post('/create_question', (req, res) => {
+
+    let path = 'xxx';
+
+    console.log(req.body.title, req.body.txt)
+
+    let db = new sqlite3.Database('test.db', (err) => {
+        if (err){console.error(err.message)};
+        console.log('Connected to database');
+    });
+
+    let sql = `INSERT INTO questions (tstamp, userid, title, txt, img) VALUES (datetime('now', 'localtime'), ?, ?, ?, ?)`;
+    db.run(sql, ["xxx", req.body.title, req.body.txt, path], (err) => {
+        if (err) console.error(err.message); 
+  
+
+    });
+
+    db.close();
+
+    res.redirect("/create_question");
+
+})
+
 // login POST handling
 app.post('/login', 
     (req, res, next) =>  {
@@ -104,7 +133,6 @@ app.post('/login',
             console.log('Connected to database');
         });
 
-        //const hash = passwordHash.generate(req.body.password);
         let sql = `SELECT pw FROM users WHERE name=?`;
         db.get(sql, [req.body.username], (err,row) => {
             if (err) {console.error(err.message)};
@@ -175,7 +203,7 @@ app.post('/register',
                 const hash = passwordHash.generate(req.context.password);
                 let sql = `INSERT INTO users (name, pw) VALUES (?,?)`;
                 db.run(sql, [req.context.username, hash], (err) => {
-                    if (err){console.err(err.message)};
+                    if (err){console.error(err.message)};
                 });
                 next();
             };

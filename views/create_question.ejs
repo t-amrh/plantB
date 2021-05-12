@@ -5,27 +5,46 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Frage stellen</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com"> 
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.typekit.net/tal5phu.css">
     <link rel="stylesheet" href="css/style-logreg.css">
+
 </head>
 <body>
     
-    <div class="nav">
+    <nav>
 
-    </div>
+
+    </nav>
 
     <main>
-
         <div class="container">
+
+            <div class="headline">
+
+            </div>
+        
             <div class="container-main">
-                <form action="" method="POST">
-                    <input type="text" name="title" placeholder="Thema deiner Frage">
+
+                <h3>Stelle deine Frage ...</h3>
+                <form action="" method="POST" name="question" id="question">
+                    <input type="text" name="title" placeholder="Worum geht's?" class="textf">
                     <br>
-                    <textarea name="txt" id="txt" cols="30" rows="10" placeholder="Stelle deine Frage hier..."></textarea>
+                    
+                    <textarea name="txt" id="txt" cols="50" rows="15" placeholder="Was genau ist dein Problem?"></textarea>
                     <br>
-                    <input type="submit">
+                    <input type="submit" class="btn">
                 </form>
             </div>
+
+            <div class="container-head">
+                <h4>& füge ein Bild hinzu</h4>
+                <input type="file" name="" id="" accept="image" form="question">
+            </div>
+
         </div>
+
     </main>
 
 
