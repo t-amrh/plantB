@@ -1,18 +1,22 @@
-INSERT INTO users 
+INSERT INTO users
     (username, password, email)
 VALUES
-    ("plantfriend", "abc123AB", "pf@gmail.com")
+    ("plantfriend", "abc123AB", "pf@gmail.com"),
+    ("Alice", "§$Y45/912v", ""),
+    ("Bob", "secret"),
+    ("Carla", "123"),
+    ("David", "divaD")
 ;
 
-INSERT INTO posts 
+INSERT INTO posts
     (tstamp, userid, title, deutscherName, wuchshoehe, wuchstyp, standort, giessen, schwierigkeit, temperatur, erde, umtopfen, duengen, blattfarbe, blattform, bluetezeit, bluetenfarbe, kalkvertraeglichkeit)
 VALUES
-    (datetime('now', 'localtime'), 
-    2, 
-    "Coffee Arabica", 
-    "Bergkaffee, Kaffeestrauch", 
-    "80 bis 150 cm", 
-    "Strauch", 
+    (datetime('now', 'localtime'),
+    2,
+    "Coffee Arabica",
+    "Bergkaffee, Kaffeestrauch",
+    "80 bis 150 cm",
+    "Strauch",
     "Heller Standort mit direkter Sonnenbestrahlung",
     "3x/ Woche; im Sommer mehr als im Winter gießen; Boden immer leicht feucht, jedoch keine Staunässe",
     "mittelschwer",
@@ -27,15 +31,15 @@ VALUES
     "kalkempfindlich")
 ;
 
-INSERT INTO posts 
+INSERT INTO posts
     (tstamp, userid, title, deutscherName, wuchshoehe, wuchstyp, standort, giessen, schwierigkeit, temperatur, erde, umtopfen, duengen, blattfarbe, blattform, bluetezeit, bluetenfarbe, kalkvertraeglichkeit)
 VALUES
-    (datetime('now', 'localtime'), 
-    2, 
-    "Eucalyptus globulus", 
-    "Eukalyptus", 
-    "1 bis 2m", 
-    "Laubgehölz, Kleinbaum", 
+    (datetime('now', 'localtime'),
+    2,
+    "Eucalyptus globulus",
+    "Eukalyptus",
+    "1 bis 2m",
+    "Laubgehölz, Kleinbaum",
     "Heller Standort mit direkter Sonnenbestrahlung",
     "zur Zeit des Hauptwachstums regelmäßig gießen; Erde sollte gut durchfeuchtet sein",
     "mittelschwer",
@@ -50,15 +54,15 @@ VALUES
     "kalkempfindlich")
 ;
 
-INSERT INTO posts 
+INSERT INTO posts
     (tstamp, userid, title, deutscherName, wuchshoehe, wuchstyp, standort, giessen, schwierigkeit, temperatur, erde, umtopfen, duengen, blattfarbe, blattform, bluetezeit, bluetenfarbe, kalkvertraeglichkeit)
 VALUES
-    (datetime('now', 'localtime'), 
-    2, 
-    "Crassula ovata/ argentea", 
-    "Geldbaum", 
-    "50 bis 100cm", 
-    "Sukkulente", 
+    (datetime('now', 'localtime'),
+    2,
+    "Crassula ovata/ argentea",
+    "Geldbaum",
+    "50 bis 100cm",
+    "Sukkulente",
     "Sonnebestrahlung, aber halbschattig",
     "zur Hauptzeit mäßig gießen; Topfballen aber nur leicht feucht, da viel Wasser in Blättern gespeichert ist",
     "mittelschwer",
@@ -73,15 +77,15 @@ VALUES
     "kalkresistent")
 ;
 
-INSERT INTO posts 
+INSERT INTO posts
     (tstamp, userid, title, deutscherName, wuchshoehe, wuchstyp, standort, giessen, schwierigkeit, temperatur, erde, umtopfen, duengen, blattfarbe, blattform, bluetezeit, bluetenfarbe, kalkvertraeglichkeit)
 VALUES
-    (datetime('now', 'localtime'), 
-    2, 
-    "Tilsandia cyanen", 
-    "Blaue Tilsandie", 
-    "20 bis 40cm", 
-    "Bromeliengewächs", 
+    (datetime('now', 'localtime'),
+    2,
+    "Tilsandia cyanen",
+    "Blaue Tilsandie",
+    "20 bis 40cm",
+    "Bromeliengewächs",
     "heller, halbschattiger Standort",
     "mit weichem, nicht zu kaltem Wasser 3x /Woche besprühen",
     "pflegeleicht",
@@ -96,7 +100,7 @@ VALUES
     "kalkempfindlich")
 ;
 
-INSERT INTO posts 
+INSERT INTO posts
     (tstamp, userid, title, deutscherName, wuchshoehe, wuchstyp, standort, giessen, schwierigkeit, temperatur, erde, umtopfen, duengen, blattfarbe, blattform, bluetezeit, bluetenfarbe, kalkvertraeglichkeit)
 VALUES
     (datetime('now', 'localtime'),
@@ -119,15 +123,15 @@ VALUES
     "kalkresistent")
 ;
 
-INSERT INTO posts 
+INSERT INTO posts
     (tstamp, userid, title, deutscherName, wuchshoehe, wuchstyp, standort, giessen, schwierigkeit, temperatur, erde, umtopfen, duengen, blattfarbe, blattform, bluetezeit, bluetenfarbe, kalkvertraeglichkeit)
 VALUES
-    (datetime('now', 'localtime'), 
-    2, 
-    "Spathiphyllum", 
-    "Einblatt", 
-    "ca. 30 bis 80cm (je nach Sorte auch höher)", 
-    "Aronstabgewächs", 
+    (datetime('now', 'localtime'),
+    2,
+    "Spathiphyllum",
+    "Einblatt",
+    "ca. 30 bis 80cm (je nach Sorte auch höher)",
+    "Aronstabgewächs",
     "halbschattiger bis schattiger Standort",
     "Substrat sollte stets feucht sein, Ballen nie ganz ausgetrocknet",
     "mittelschwer",
@@ -142,15 +146,15 @@ VALUES
     "kalkempfindlich")
 ;
 
-INSERT INTO posts 
+INSERT INTO posts
     (tstamp, userid, title, deutscherName, wuchshoehe, wuchstyp, standort, giessen, schwierigkeit, temperatur, erde, umtopfen, duengen, blattfarbe, blattform, bluetezeit, bluetenfarbe, kalkvertraeglichkeit)
 VALUES
-    (datetime('now', 'localtime'), 
-    2, 
-    "Mertensia virginica", 
-    "Virginisches Blauglöckchen", 
-    "10 bis 30cm", 
-    "Raublattgewächse", 
+    (datetime('now', 'localtime'),
+    2,
+    "Mertensia virginica",
+    "Virginisches Blauglöckchen",
+    "10 bis 30cm",
+    "Raublattgewächse",
     "halbschattig mit keiner direkte Sonneneinstrahlung",
     "gleichmäßig gießen; feuchter, aber nicht staunasser Boden",
     "pflegeleicht",
@@ -165,7 +169,7 @@ VALUES
     "kalkresistent")
 ;
 
-INSERT INTO posts 
+INSERT INTO posts
     (tstamp, userid, title, deutscherName, wuchshoehe, wuchstyp, standort, giessen, schwierigkeit, temperatur, erde, umtopfen, duengen, blattfarbe, blattform, bluetezeit, bluetenfarbe, kalkvertraeglichkeit)
 VALUES
     (datetime('now', 'localtime'),
@@ -188,7 +192,7 @@ VALUES
     "kaltresistent")
 ;
 
-INSERT INTO posts 
+INSERT INTO posts
     (tstamp, userid, title, deutscherName, wuchshoehe, wuchstyp, standort, giessen, schwierigkeit, temperatur, erde, umtopfen, duengen, blattfarbe, blattform, bluetezeit, bluetenfarbe, kalkvertraeglichkeit)
 VALUES
     (datetime('now', 'localtime'),
