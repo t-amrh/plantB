@@ -86,6 +86,14 @@ app.get('/logout', (req,res) => {
     res.redirect('/home');
 });
 
+app.get('/create_post', (req,res) => {
+    res.render('create_post', {});
+});
+
+app.get('/create_question', (req,res) => {
+    res.render('create_question', {});
+});
+
 // login POST handling
 app.post('/login', 
     (req, res, next) =>  {
