@@ -11,7 +11,7 @@ VALUES
     2, 
     "Coffee Arabica", 
     "Bergkaffee, Kaffeestrauch", 
-    "80 bis 150 cm", 
+    "80 bis 140 cm", 
     "Strauch", 
     "Heller Standort mit direkter Sonnenbestrahlung",
     "3x/ Woche; im Sommer mehr als im Winter gießen; Boden immer leicht feucht, jedoch keine Staunässe",
