@@ -22,13 +22,17 @@ app.set('view engine', 'ejs');
 const session = require('express-session');
 app.use(session({
     secret: 'example',
-    resave: false,
+    resave: true,
     saveUninitialized: true,
-    cookie: {maxAge: 60*60*1000}
+    cookie: {maxAge: 2 * 60*60*60*1000}
 }));
 
 //initializing password hashing
 const passwordHash = require('password-hash');
+
+//initializing file upload
+const fileUpload = require('express-fileupload');
+app.use(fileUpload());
 
 //static files
 app.use(express.static(__dirname + '/public'));
@@ -39,8 +43,8 @@ app.get('', (req, res) => {
 });
 
 app.get('/home', (req, res) => {
-    if(req.session.loggedIn){
-        res.render('index', {username: req.session.loggedIn.username});
+    if(req.session.user){
+        res.render('index', {username: req.session.user.name});
     }
     else{
         res.render('index', {});
@@ -48,7 +52,7 @@ app.get('/home', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-    if (req.session.loggedIn){
+    if (req.session.user){
         res.redirect('/welcome');
     }
     else{
@@ -61,20 +65,21 @@ app.get('/register', (req, res) => {
 });
 
 app.get('/profile', (req, res) => {
-    res.render('profile', {task: 'overview', username: req.session.loggedIn.username})
+    if (req.session.user)
+        res.render('profile', {task: 'overview', username: req.session.user.name})
 });
 
 app.get('/change_pw', (req, res) => {
-    res.render('profile', {task: 'change_pw', username: req.session.loggedIn.username})
+    res.render('profile', {task: 'change_pw', username: req.session.user.name})
 });
 
 app.get('/delete_user', (req, res) => {
-    res.render('profile', {task: 'delete_user', username: req.session.loggedIn.username})
+    res.render('profile', {task: 'delete_user', username: req.session.user.name})
 });
 
 app.get('/welcome', (req, res) => {
-    if (req.session.loggedIn){
-        res.render('welcome', {username: req.session.loggedIn.username});
+    if (req.session.user){
+        res.render('welcome', {username: req.session.user.name});
     }
     else{
         res.redirect('/login');
@@ -82,28 +87,38 @@ app.get('/welcome', (req, res) => {
 });
 
 app.get('/logout', (req,res) => {
-    delete req.session.loggedIn;
+    req.session.destroy();
     res.redirect('/home');
 });
 
 app.get('/create_post', (req,res) => {
-    res.render('create_post', {});
+    if (req.session.user)
+        res.render('create_post', {});
+    else 
+        res.redirect('/home');
 });
 
 app.get('/create_question', (req,res) => {
-    res.render('create_question', {});
+    if (req.session.user)
+        res.render('create_question', {});
+    else
+        res.redirect('/home');
 });
 
 
 // create_question POST handling
 
 
-
 app.post('/create_question', (req, res) => {
 
-    let path = 'xxx';
+    let path = '/public/images/users/' ; //+ req.session.user.id + "/"
+    let filename = req.session.user.id + '-q-' + Date.now() + '.jpg';
 
-    console.log(req.body.title, req.body.txt)
+    const file = req.files["img"];
+    file.mv(__dirname + path + filename, (err) => {
+        if (err) {console.error(err.message)}
+    });
+
 
     let db = new sqlite3.Database('test.db', (err) => {
         if (err){console.error(err.message)};
@@ -111,15 +126,15 @@ app.post('/create_question', (req, res) => {
     });
 
     let sql = `INSERT INTO questions (tstamp, userid, title, txt, img) VALUES (datetime('now', 'localtime'), ?, ?, ?, ?)`;
-    db.run(sql, ["xxx", req.body.title, req.body.txt, path], (err) => {
+    db.run(sql, [req.session.user.id, req.body.title, req.body.txt, path + filename], (err) => {
         if (err) console.error(err.message); 
   
 
     });
 
     db.close();
-
-    res.redirect("/create_question");
+    res.send("upload: " + file.name);
+    //res.redirect("/create_question");
 
 })
 
@@ -133,12 +148,13 @@ app.post('/login',
             console.log('Connected to database');
         });
 
-        let sql = `SELECT pw FROM users WHERE name=?`;
+        let sql = `SELECT pw, id FROM users WHERE name=?`;
         db.get(sql, [req.body.username], (err,row) => {
             if (err) {console.error(err.message)};
 
 
             if (row && (passwordHash.verify(req.body.password, row.pw) ) ){
+                req.body.id = row.id;
                 next();
             }
             else{
@@ -150,7 +166,11 @@ app.post('/login',
     (req, res) =>{
         //setting session cookie
 
-        req.session.loggedIn = {username: req.body.username};
+        req.session.user = {
+            name: req.body.username,
+            id: req.body.id,
+            loggedin: true
+        };
         res.redirect('/welcome');
     }
 );
@@ -204,8 +224,9 @@ app.post('/register',
                 let sql = `INSERT INTO users (name, pw) VALUES (?,?)`;
                 db.run(sql, [req.context.username, hash], (err) => {
                     if (err){console.error(err.message)};
+                    next();
                 });
-                next();
+                
             };
         })
         db.close( () => console.log('Connection closed'));
@@ -213,8 +234,24 @@ app.post('/register',
     (req, res) => {
         //setting session cookie
 
-        req.session.loggedIn = {username: req.context.username};
-        res.redirect('/welcome');
+        db = new sqlite3.Database('plant.db', (err) => {
+            if (err){console.error(err.message)}
+            console.log('Connected to database');
+        });
+
+        let sql = `SELECT name, id FROM users WHERE name="${req.body.username}"`;
+        db.get(sql, (err, row) => {
+            if (err) {console.error(err.message)};
+            
+                req.session.user = {
+                    name: row.name,
+                    id: row.id,
+                    loggedin: true,
+                };
+                res.redirect('/welcome');
+            
+        });
+        db.close( () => console.log('Connection closed'));
     }
 );
 
@@ -246,7 +283,7 @@ app.post('/change_pw',
         });
 
         let sql = `SELECT pw FROM users WHERE name=?`;
-        db.get(sql, [req.session.loggedIn.username], (err,row) => {
+        db.get(sql, [req.session.user.name], (err,row) => {
             if (err){console.error(err.message)};
 
             if (! passwordHash.verify(req.body.pw_old, row.pw)){
@@ -255,7 +292,7 @@ app.post('/change_pw',
             else{
                 const hash = passwordHash.generate(req.body.pw_new);
                 let sql = `UPDATE users SET pw=? WHERE name=?`;
-                db.run(sql, [hash, req.session.loggedIn.username], (err) => {
+                db.run(sql, [hash, req.session.user.name], (err) => {
                     if (err){console.err(err.message)};
                 });
                 next();
@@ -264,7 +301,7 @@ app.post('/change_pw',
         db.close( () => console.log('Connection closed'));
     },
     (req, res) =>{
-        res.render('profile', {task: 'overview', username: req.session.loggedIn.username, scs_msg: 'Passwort erfolgreich geändert'})
+        res.render('profile', {task: 'overview', username: req.session.user.name, scs_msg: 'Passwort erfolgreich geändert'})
     }
 );
 
@@ -279,18 +316,18 @@ app.post('/delete_user',
         });
 
         let sql = `SELECT pw FROM users WHERE name=?`;
-        db.get(sql, [req.session.loggedIn.username], (err,row) => {
+        db.get(sql, [req.session.user.name], (err,row) => {
             if (err){console.error(err.message)};
                       
             if (passwordHash.verify(req.body.password, row.pw)){
                 sql = `DELETE FROM users WHERE name=?`;
-                db.run(sql, [req.session.loggedIn.username], (err) => {
+                db.run(sql, [req.session.user.name], (err) => {
                     if (err) {console.err(err.message)};
                 })
                 next();
             }
             else{
-                res.render('profile', {task: 'delete_user', username: req.session.loggedIn.username, err_msg: 'Passwort falsch'})
+                res.render('profile', {task: 'delete_user', username: req.session.user.name, err_msg: 'Passwort falsch'})
             }
         });
         db.close( () => console.log('Connection closed'));
@@ -298,7 +335,7 @@ app.post('/delete_user',
     (req, res) =>{
         //deleting session 
 
-        delete req.session.loggedIn;
+        delete req.session.user;
         res.redirect('/home');
     }
 );
