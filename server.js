@@ -24,7 +24,10 @@ app.use(session({
     secret: 'example',
     resave: true,
     saveUninitialized: true,
-    cookie: {maxAge: 2 * 60*60*60*1000}
+    cookie: {
+        maxAge: 2 * 60*60*60*1000,
+        sameSite: 'none',
+    }
 }));
 
 //initializing password hashing
@@ -102,8 +105,26 @@ app.get('/create_question', (req,res) => {
     if (req.session.user)
         res.render('create_question', {});
     else
-        res.redirect('/home');
+        res.redirect('/login');
 });
+
+app.get('/questions', (req, res) => {
+    let db = new sqlite3.Database('plant.db', (err) => {
+        if (err){console.error(err.message)};
+    });
+
+    sql = `SELECT users.username AS name, title, txt, tstamp, questions.img AS img FROM users, questions WHERE users.id = questions.userid`;
+    db.all(sql, (err, rows) => {
+        if (err){console.error(err.message)};
+
+        if (rows && rows.length > 0){
+            res.render('questions', {questions: rows})
+        }
+        else{
+            res.redirect('/create_question')
+        }
+    })
+})
 
 
 // create_question POST handling
@@ -111,16 +132,16 @@ app.get('/create_question', (req,res) => {
 
 app.post('/create_question', (req, res) => {
 
-    let path = '/public/images/users/' ; //+ req.session.user.id + "/"
+    let path = 'images/users/' ; //+ req.session.user.id + "/"
     let filename = req.session.user.id + '-q-' + Date.now() + '.jpg';
 
-    const file = req.files["img"];
-    file.mv(__dirname + path + filename, (err) => {
+    const file = req.files['img'];
+
+    file.mv(__dirname + '/public/' + path + filename, (err) => {
         if (err) {console.error(err.message)}
     });
 
-
-    let db = new sqlite3.Database('test.db', (err) => {
+    let db = new sqlite3.Database('plant.db', (err) => {
         if (err){console.error(err.message)};
         console.log('Connected to database');
     });
@@ -128,13 +149,11 @@ app.post('/create_question', (req, res) => {
     let sql = `INSERT INTO questions (tstamp, userid, title, txt, img) VALUES (datetime('now', 'localtime'), ?, ?, ?, ?)`;
     db.run(sql, [req.session.user.id, req.body.title, req.body.txt, path + filename], (err) => {
         if (err) console.error(err.message); 
-  
-
     });
 
     db.close();
-    res.send("upload: " + file.name);
-    //res.redirect("/create_question");
+  
+    res.redirect("/questions");
 
 })
 
@@ -148,12 +167,12 @@ app.post('/login',
             console.log('Connected to database');
         });
 
-        let sql = `SELECT pw, id FROM users WHERE name=?`;
+        let sql = `SELECT password, id FROM users WHERE username=?`;
         db.get(sql, [req.body.username], (err,row) => {
             if (err) {console.error(err.message)};
 
 
-            if (row && (passwordHash.verify(req.body.password, row.pw) ) ){
+            if (row && (passwordHash.verify(req.body.password, row.password) ) ){
                 req.body.id = row.id;
                 next();
             }
@@ -212,7 +231,7 @@ app.post('/register',
             console.log('Connected to database');
         });
 
-        let sql = `SELECT name FROM users WHERE name=?`;
+        let sql = `SELECT username FROM users WHERE username=?`;
         db.get(sql, [req.body.username], (err,row) => {
             if (err){console.error(err.message)};
 
@@ -221,8 +240,8 @@ app.post('/register',
             }
             else{
                 const hash = passwordHash.generate(req.context.password);
-                let sql = `INSERT INTO users (name, pw) VALUES (?,?)`;
-                db.run(sql, [req.context.username, hash], (err) => {
+                let sql = `INSERT INTO users (username, password, email) VALUES (?,?,?)`;
+                db.run(sql, [req.context.username, hash, req.body.email], (err) => {
                     if (err){console.error(err.message)};
                     next();
                 });
@@ -239,12 +258,12 @@ app.post('/register',
             console.log('Connected to database');
         });
 
-        let sql = `SELECT name, id FROM users WHERE name="${req.body.username}"`;
+        let sql = `SELECT username, id FROM users WHERE username="${req.body.username}"`;
         db.get(sql, (err, row) => {
             if (err) {console.error(err.message)};
             
                 req.session.user = {
-                    name: row.name,
+                    name: row.username,
                     id: row.id,
                     loggedin: true,
                 };
@@ -282,7 +301,7 @@ app.post('/change_pw',
             console.log('Connected to database');
         });
 
-        let sql = `SELECT pw FROM users WHERE name=?`;
+        let sql = `SELECT password FROM users WHERE username=?`;
         db.get(sql, [req.session.user.name], (err,row) => {
             if (err){console.error(err.message)};
 
@@ -291,7 +310,7 @@ app.post('/change_pw',
             }
             else{
                 const hash = passwordHash.generate(req.body.pw_new);
-                let sql = `UPDATE users SET pw=? WHERE name=?`;
+                let sql = `UPDATE users SET password=? WHERE username=?`;
                 db.run(sql, [hash, req.session.user.name], (err) => {
                     if (err){console.err(err.message)};
                 });
@@ -315,12 +334,12 @@ app.post('/delete_user',
             console.log('Connected to database');
         });
 
-        let sql = `SELECT pw FROM users WHERE name=?`;
+        let sql = `SELECT password FROM users WHERE username=?`;
         db.get(sql, [req.session.user.name], (err,row) => {
             if (err){console.error(err.message)};
                       
             if (passwordHash.verify(req.body.password, row.pw)){
-                sql = `DELETE FROM users WHERE name=?`;
+                sql = `DELETE FROM users WHERE username=?`;
                 db.run(sql, [req.session.user.name], (err) => {
                     if (err) {console.err(err.message)};
                 })

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Plant B</title>
+        <link rel="stylesheet" href="/css/style-logreg.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com"> 
+        <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Montserrat&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.typekit.net/tal5phu.css">
+    </head>
+    <body>
+        <nav>
+            
+        </nav>
+        <main>
+            <div class="">
+                
+                <% for (let i=0; i < questions.length; i++) { %>
+
+                        <h2><%= questions[i].title  %></h2>
+                        <h4><%= questions[i].tstamp %> von <%= questions[i].name %></h4>
+             
+                        <p><%= questions[i].txt %></p>
+                        <img src="<%= questions[i].img %>" alt="No" style="height: 150px; width: 150px;">
+
+                <% } %>
+
+            </div>
+        </main>  
+    </body>
+</html>
