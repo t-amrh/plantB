@@ -3,3 +3,4 @@ plant.db
 .git
 .DS_Store
 *.db
+public/images/users/
