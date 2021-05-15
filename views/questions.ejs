@@ -15,19 +15,18 @@
             
         </nav>
         <main>
-            <div class="">
-                
+                <div>
                 <% for (let i=0; i < questions.length; i++) { %>
-
-                        <h2><%= questions[i].title  %></h2>
+                    <div id="question">
+                        <br>
+                        <h2><a href="/question/<%=questions[i].id%>"><%= questions[i].title  %></a></h2>
                         <h4><%= questions[i].tstamp %> von <%= questions[i].name %></h4>
-             
-                        <p><%= questions[i].txt %></p>
-                        <img src="<%= questions[i].img %>" alt="No" style="height: 150px; width: 150px;">
-
+                        <br>
+                    </div>
                 <% } %>
-
+                <a href="/welcome">Zurück</a>
             </div>
-        </main>  
+        </main> 
+       
     </body>
 </html>

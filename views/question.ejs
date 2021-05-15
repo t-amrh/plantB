@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Plant B</title>
+        <link rel="stylesheet" href="/css/style-logreg.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com"> 
+        <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Montserrat&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.typekit.net/tal5phu.css">
+    </head>
+    <body>
+        <nav>
+            
+        </nav>
+        <div class="container-head">
+            <div class="container-main">
+            <div>
+                <img src="/<%= question.img %>" alt="" class="logo-login">
+            </div>
+
+            <div>
+                <h2><%= question.title  %></h2>
+                <h4><%= question.tstamp %> von <%= question.name %></h4>
+            </div>
+            <div>
+                <p><%= question.txt %></p>
+            </div>
+            <br>
+            <br>
+            <br>
+            <a href="/questions">Zurück</a>
+        </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="container-head" id="answers">
+
+            <% if(typeof answers != 'undefined' && answers.length > 0) { %>
+
+                <h3>Antworten:</h3>
+                <% for(let i=0; i < answers.length; i++) { %>
+
+                    <p style="font-size: 0.75rem;"><%=answers[i].tstamp%> von <%=answers[i].name%>:</p>
+                    <p><%=answers[i].txt %></p>
+                    <br>
+                    <% if(answers[i].userid == userid) { %>
+                        <form action="/delete_answer/<%= answers[i].id %>" method="POST">
+                            <button type="submit" class="btn">Löschen</button>
+                        </form>
+                    <% } %>
+                <% } %>
+
+            <% } else { %>
+                <p>Keine Antworten vorhanden</p>
+            <% } %>
+            
+        </div>
+        <br>
+        <br>
+        <br>
+        <div class="container-head">
+
+            <form action="/create_answer" method="POST" id="answer">
+            </form>
+                <textarea name="txt" id="txt" cols="30" rows="10" placeholder="Deine Antwort" form="answer"></textarea>
+                <br>
+                <input type="submit" name="" id="" form="answer">
+                <input type="hidden" name="questionid" id="" form="answer" value="<%=question.id%>">
+
+        </div>
+    </body>
+</html>
