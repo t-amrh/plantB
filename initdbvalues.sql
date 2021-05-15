@@ -3,9 +3,9 @@ INSERT INTO users
 VALUES
     ("plantfriend", "abc123AB", "pf@gmail.com"),
     ("Alice", "§$Y45/912v", ""),
-    ("Bob", "secret"),
-    ("Carla", "123"),
-    ("David", "divaD")
+    ("Bob", "secret", ""),
+    ("Carla", "123", ""),
+    ("David", "divaD", "")
 ;
 
 INSERT INTO posts
