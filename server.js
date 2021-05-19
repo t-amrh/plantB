@@ -370,7 +370,6 @@ app.get('/question/:id/delete', (req, res) => {
         if (err) console.error(err.message);
 
         sql = `DELETE FROM answers WHERE questionid=?`;
-
         db.run(sql, [req.params.id], err => {
             if (err) console.error(err.message);
 
