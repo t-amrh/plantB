@@ -9,15 +9,25 @@ html{
 
 body{
     height: 100%;
-    background-color: #ebeae6;
+    background-color: rgb(235, 234, 230);
 }
 
 nav{
     text-align: right;
-    position: sticky;
-    top: 1.5rem;
-    right: 3rem;
+    background-color: rgba(235, 234, 230);
+    height: 3rem; 
 }
+
+.nav-bg{
+    
+    position: sticky;
+    top: 0rem;
+    right: 3rem;
+    background-color: rgba(235, 234, 230);
+    height: 3rem; 
+
+}
+
 
 a{
     padding: 0 1.5rem 0 1.5rem;
@@ -44,10 +54,11 @@ h1{
     font-style: normal;
     font-size: 3.5rem; 
     color: white;
-    
     position: absolute;
     top: 44%;
 }
+
+
 .logo-login{
     width:15rem;
     height: 15rem;
@@ -69,7 +80,6 @@ h1{
     justify-content: center;
     align-items: center;
     text-align: center;
-
     width: 50%;
 }
 
@@ -115,5 +125,23 @@ textarea:focus {
     font-size: 0.6em;
 }
 
+.icon{
+    width: 35px;
+    height: 35px;
+    margin: 5px;
+
+    /* border: solid black 1px; */
+    border-radius: 5px;
+}
 
 
+.post{
+    margin-top: 70px;
+
+    border-radius: 10px;
+    padding: 10%;
+
+}
+#txt{
+    text-align: start;
+}
