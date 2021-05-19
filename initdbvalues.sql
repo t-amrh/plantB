@@ -9,7 +9,7 @@ VALUES
 ;
 
 INSERT INTO posts
-    (tstamp, userid, title, deutscherName, wuchshoehe, wuchstyp, standort, giessen, schwierigkeit, temperatur, erde, umtopfen, duengen, blattfarbe, blattform, bluetezeit, bluetenfarbe, kalkvertraeglichkeit)
+    (tstamp, userid, title, deutscherName, wuchshoehe, wuchstyp, standort, giessen, schwierigkeit, temperatur, erde, umtopfen, duengen, blattfarbe, blattform, bluetezeit, bluetenfarbe, kalkvertraeglichkeit, img)
 VALUES
     (datetime('now', 'localtime'),
     2,
@@ -28,11 +28,12 @@ VALUES
     "breit lanzettlich, ganzradig",
     "April bis Mai",
     "weiß",
-    "kalkempfindlich")
+    "kalkempfindlich",
+    "/images/Coffee Arabica.jpg")
 ;
 
 INSERT INTO posts
-    (tstamp, userid, title, deutscherName, wuchshoehe, wuchstyp, standort, giessen, schwierigkeit, temperatur, erde, umtopfen, duengen, blattfarbe, blattform, bluetezeit, bluetenfarbe, kalkvertraeglichkeit)
+    (tstamp, userid, title, deutscherName, wuchshoehe, wuchstyp, standort, giessen, schwierigkeit, temperatur, erde, umtopfen, duengen, blattfarbe, blattform, bluetezeit, bluetenfarbe, kalkvertraeglichkeit, img)
 VALUES
     (datetime('now', 'localtime'),
     2,
@@ -51,11 +52,12 @@ VALUES
     "länglich, oval",
     "Dezember bis Februar",
     "weiß",
-    "kalkempfindlich")
+    "kalkempfindlich",
+    "/images/Eucalyptus globulus.jpg")
 ;
 
 INSERT INTO posts
-    (tstamp, userid, title, deutscherName, wuchshoehe, wuchstyp, standort, giessen, schwierigkeit, temperatur, erde, umtopfen, duengen, blattfarbe, blattform, bluetezeit, bluetenfarbe, kalkvertraeglichkeit)
+    (tstamp, userid, title, deutscherName, wuchshoehe, wuchstyp, standort, giessen, schwierigkeit, temperatur, erde, umtopfen, duengen, blattfarbe, blattform, bluetezeit, bluetenfarbe, kalkvertraeglichkeit, img)
 VALUES
     (datetime('now', 'localtime'),
     2,
@@ -74,11 +76,12 @@ VALUES
     "oval",
     "Februar bis April",
     "rosa, weiß",
-    "kalkresistent")
+    "kalkresistent",
+    "/images/Crassula ovata.jpg")
 ;
 
 INSERT INTO posts
-    (tstamp, userid, title, deutscherName, wuchshoehe, wuchstyp, standort, giessen, schwierigkeit, temperatur, erde, umtopfen, duengen, blattfarbe, blattform, bluetezeit, bluetenfarbe, kalkvertraeglichkeit)
+    (tstamp, userid, title, deutscherName, wuchshoehe, wuchstyp, standort, giessen, schwierigkeit, temperatur, erde, umtopfen, duengen, blattfarbe, blattform, bluetezeit, bluetenfarbe, kalkvertraeglichkeit, img)
 VALUES
     (datetime('now', 'localtime'),
     2,
@@ -97,11 +100,12 @@ VALUES
     "dünne, lange Blätter",
     "Februar bis Oktober",
     "violett-blau (fächerförmig)",
-    "kalkempfindlich")
+    "kalkempfindlich",
+    "/images/Tilsandia cyanen.jpg")
 ;
 
 INSERT INTO posts
-    (tstamp, userid, title, deutscherName, wuchshoehe, wuchstyp, standort, giessen, schwierigkeit, temperatur, erde, umtopfen, duengen, blattfarbe, blattform, bluetezeit, bluetenfarbe, kalkvertraeglichkeit)
+    (tstamp, userid, title, deutscherName, wuchshoehe, wuchstyp, standort, giessen, schwierigkeit, temperatur, erde, umtopfen, duengen, blattfarbe, blattform, bluetezeit, bluetenfarbe, kalkvertraeglichkeit, img)
 VALUES
     (datetime('now', 'localtime'),
     2,
@@ -120,11 +124,12 @@ VALUES
     "herzförmig ausgebildet und niedrig gelappt",
     "Juni bis September",
     "keine Blüten",
-    "kalkresistent")
+    "kalkresistent",
+    "/images/Monstera deliciosa.jpg")
 ;
 
 INSERT INTO posts
-    (tstamp, userid, title, deutscherName, wuchshoehe, wuchstyp, standort, giessen, schwierigkeit, temperatur, erde, umtopfen, duengen, blattfarbe, blattform, bluetezeit, bluetenfarbe, kalkvertraeglichkeit)
+    (tstamp, userid, title, deutscherName, wuchshoehe, wuchstyp, standort, giessen, schwierigkeit, temperatur, erde, umtopfen, duengen, blattfarbe, blattform, bluetezeit, bluetenfarbe, kalkvertraeglichkeit, img)
 VALUES
     (datetime('now', 'localtime'),
     2,
@@ -143,11 +148,12 @@ VALUES
     "oval",
     "Juni bis September",
     "weiß",
-    "kalkempfindlich")
+    "kalkempfindlich",
+    "/images/Spathiphyllum.jpg")
 ;
 
 INSERT INTO posts
-    (tstamp, userid, title, deutscherName, wuchshoehe, wuchstyp, standort, giessen, schwierigkeit, temperatur, erde, umtopfen, duengen, blattfarbe, blattform, bluetezeit, bluetenfarbe, kalkvertraeglichkeit)
+    (tstamp, userid, title, deutscherName, wuchshoehe, wuchstyp, standort, giessen, schwierigkeit, temperatur, erde, umtopfen, duengen, blattfarbe, blattform, bluetezeit, bluetenfarbe, kalkvertraeglichkeit, img)
 VALUES
     (datetime('now', 'localtime'),
     2,
@@ -166,11 +172,12 @@ VALUES
     "elliptisch bis oval",
     "Februar bis November; Blüten zeigen sich im April und Mai",
     "violett-blau/ rosa (Trompetenblüten)",
-    "kalkresistent")
+    "kalkresistent",
+    "/images/Mertensia virginica.jpg")
 ;
 
 INSERT INTO posts
-    (tstamp, userid, title, deutscherName, wuchshoehe, wuchstyp, standort, giessen, schwierigkeit, temperatur, erde, umtopfen, duengen, blattfarbe, blattform, bluetezeit, bluetenfarbe, kalkvertraeglichkeit)
+    (tstamp, userid, title, deutscherName, wuchshoehe, wuchstyp, standort, giessen, schwierigkeit, temperatur, erde, umtopfen, duengen, blattfarbe, blattform, bluetezeit, bluetenfarbe, kalkvertraeglichkeit, img)
 VALUES
     (datetime('now', 'localtime'),
     2,
@@ -189,11 +196,12 @@ VALUES
     "kleinere, ovale Blätter",
     "April bis Septembe",
     "keine Blüten",
-    "kaltresistent")
+    "kaltresistent",
+    "/images/Zamioculas zamiifolia.jpg")
 ;
 
 INSERT INTO posts
-    (tstamp, userid, title, deutscherName, wuchshoehe, wuchstyp, standort, giessen, schwierigkeit, temperatur, erde, umtopfen, duengen, blattfarbe, blattform, bluetezeit, bluetenfarbe, kalkvertraeglichkeit)
+    (tstamp, userid, title, deutscherName, wuchshoehe, wuchstyp, standort, giessen, schwierigkeit, temperatur, erde, umtopfen, duengen, blattfarbe, blattform, bluetezeit, bluetenfarbe, kalkvertraeglichkeit, img)
 VALUES
     (datetime('now', 'localtime'),
     2,
@@ -212,5 +220,6 @@ VALUES
     "überhängende Wedel/Fiedern",
     "Frühling bis Herst",
     "keine Blüten",
-    "kalkempfindlich")
+    "kalkempfindlich",
+    "/images/Chamaedorea.jpg")
 ;

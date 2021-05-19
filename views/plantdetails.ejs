@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Plant B - Pflanzenübersicht</title>
+    <link rel="stylesheet" href="/css/style-plantoverview.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Montserrat&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://use.typekit.net/tal5phu.css">
+</head>
+
+<body>
+    <nav>
+        <a href="/home">Home</a>
+        |
+        <a href="/plantoverview">Pflanzenübersicht</a>
+        |
+        <% if(typeof username=='undefined' ){ %>
+            <a href="/login">Login</a>
+            |
+            <a href="/register">Registrieren</a>
+            <% }else{ %>
+                <div class="dropdown">
+                    <button class="dropbtn">
+                        <%=username%>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="/profile">Dein Profil</a>
+                        <a href="">Deine PLANTage</a>
+                    </div>
+                </div>
+                |
+                <a href="/logout">Logout</a>
+                <% }; %>
+    </nav>
+
+    <main>
+        <div>
+            <img src="<%= posts.img %>" class="plantimg2" alt="">
+            <%= posts.deutscherName%>
+                <%= posts.title%>
+                    <%= posts.wuchshoehe%>
+                        <%= posts.wuchstyp%>
+                            <%= posts.standort%>
+                                <%= posts.giessen%>
+                                    <%= posts.schwierigkeit%>
+                                        <%= posts.temperatur%>
+                                            <%= posts.erde%>
+                                                <%= posts.umtopfen%>
+                                                    <%= posts.duengen%>
+                                                        <%= posts.blattfarbe%>
+                                                            <%= posts.blattform%>
+                                                                <%= posts.bluetezeit%>
+                                                                    <%= posts.bluetenfarbe%>
+                                                                        <%= posts.kalkvertraeglichkeit%>
+        </div>
+
+
+
+    </main>
