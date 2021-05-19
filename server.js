@@ -140,7 +140,6 @@ app.get('/questions', (req, res) => {
 
 
 //question detail view
-
 app.get('/question/:id', (req, res) => {
 
     let db = new sqlite3.Database('plant.db', (err) => {

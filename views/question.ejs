@@ -45,15 +45,17 @@
                 <% for(let i=0; i < answers.length; i++) { %>
 
                     <p style="font-size: 0.75rem;"><%=answers[i].tstamp%> von <%=answers[i].name%>:</p>
+
                     <p><%=answers[i].txt %></p>
                     <br>
+                    <p><a href="">+</a> <%= answers[i].votes %> <a href="">-</a></p>
                     <% if(answers[i].userid == userid) { %>
                         <form action="/delete_answer/<%= answers[i].id %>" method="POST">
                             <button type="submit" class="btn">Löschen</button>
                         </form>
                     <% } %>
+                    <p>______________________</p>
                 <% } %>
-
             <% } else { %>
                 <p>Keine Antworten vorhanden</p>
             <% } %>
