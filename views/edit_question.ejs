@@ -12,7 +12,6 @@
 
 </head>
 <body>
-    
 
 
     <main>
@@ -24,19 +23,19 @@
         
             <div class="container-main">
 
-                <h3>Stelle deine Frage ...</h3>
-                <form action="create_question" method="POST" name="question" id="question" enctype="multipart/form-data">
-                    <input type="text" name="title" placeholder="Worum geht's?" class="textf" >
+                <h3>Bearbeite deine Frage ...</h3>
+                <form action="/question/<%=typeof context != 'undefined' ? context.id : ''%>/edit" method="POST" name="question" id="question" enctype="multipart/form-data">
+                    <input type="text" name="title" class="textf" value="<%= typeof context != 'undefined' ? context.title : '' %>">
                     <br>
-                    <textarea name="txt" id="txt" cols="50" rows="15" placeholder="Was genau ist dein Problem?"></textarea>
+                    <textarea name="txt" id="txt" cols="50" rows="15"><%=typeof context != 'undefined' ? context.txt : ''%></textarea>
                     <br>
                     <input type="submit" class="btn">
                 </form>
             </div>
 
             <div class="container-head">
-                <h4>& füge ein Bild hinzu</h4>
-                <input type="file" name="img" id="" accept="image/jpeg" form="question">
+                <h4>oder dein Bild </h4>
+                <input type="file" name="img" id="" accept="image/jpeg" form="question" >
             </div>
 
         </div>

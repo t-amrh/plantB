@@ -6,36 +6,47 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Plant B</title>
         <link rel="stylesheet" href="/css/style-logreg.css">
+
         <link rel="preconnect" href="https://fonts.gstatic.com"> 
         <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Montserrat&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://use.typekit.net/tal5phu.css">
     </head>
     <body>
+    <div class="nav-bg">
         <% if (loggedin) { %>
             <%- include('partials/navbar_loggedin') %>
         <% } else { %>
             <%- include('partials/navbar_loggedout') %>
         <% } %>
-
-
+    </div>
+  
         <div class="container-head">
-            <div class="container-main">
-            <div>
-                <img src="/<%= question.img %>" alt="" class="logo-login">
-            </div>
 
-            <div>
-                <h2><%= question.title  %></h2>
-                <h4><%= question.tstamp %> von <%= question.name %></h4>
+            <div class="container-main">
+                <div class="post">
+                    <div>
+                        <img src="/<%= question.img %>" alt="" class="logo-login">
+                    </div>
+
+                    <div>
+                        <h2><%= question.title  %></h2>
+                        <h4><%= question.tstamp %> von <%= question.name %></h4>
+                    </div>
+                    <div>
+                        <p><%= question.txt %></p>
+                        <!-- <img class="icon" src="/icons/edit.png" alt="bearbeiten">
+                        <img class="icon" src="/icons/delete.png" alt="löschen"> -->
+                        <br>
+                        <br>
+                        <a href="/question/<%= question.id %>/edit">bearbeiten</a>
+                        <a href="/question/<%= question.id %>/delete">löschen</a>
+                    
+                    </div>
+                </div>
+                <br>
+                    <a href="/questions">Zurück</a>
+                
             </div>
-            <div>
-                <p><%= question.txt %></p>
-            </div>
-            <br>
-            <br>
-            <br>
-            <a href="/questions">Zurück</a>
-        </div>
         </div>
         <br>
         <br>
