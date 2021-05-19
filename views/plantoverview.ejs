@@ -36,27 +36,29 @@
     </nav>
 
     <main>
-        <div Class="margintop"></div>
+        
         <% for (let i=0; i < posts.length; i++) { %>
-            <a href="/plantdetails/<%=posts[i].id%>" class="plant">
-                <img src="<%= posts[i].img %>" class="plantimg" alt="">
-                <h2>
-                    <%= posts[i].deutscherName %>
-                </h2>
-                <div class="lat">(lat. <%= posts[i].title %>)</div><br>
-
-                Schwierigkeitsgrad:<h3>
-                    <%= posts[i].schwierigkeit %>
-                </h3>
-                Mehr Infos mit einem CLICK!
+            
+                <a href="/plantdetails/<%=posts[i].id%>" class="">
+                    <div class="plant">
+                    <img src="<%= posts[i].img %>" class="plantimg" alt="">
+                    <h2><%= posts[i].deutscherName %></h2>
+                    <div class="lat">(lat. <%= posts[i].title %>)</div>
+                    <br>
+                    Schwierigkeitsgrad:
+                    <h3><%= posts[i].schwierigkeit %></h3>
+                    Mehr Infos mit einem CLICK!
+                </div>
             </a>
+     
             <% } %>
-
-                <a href="/newplant" class="newplant">
-                    <img src="/images/lolol.jpg" class="newplantimg" alt="">
-                </a>
-
     </main>
+    <br>
+
+    <a href="/newplant" class="newplant">
+        <img src="/images/lolol.jpg" class="newplantimg" alt="">
+    </a>
+
 </body>
 
 </html>
