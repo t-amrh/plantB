@@ -48,8 +48,8 @@
 
                     <p><%=answers[i].txt %></p>
                     <br>
-                    <p><a href="">+</a> <%= answers[i].votes %> <a href="">-</a></p>
-                    <% if(answers[i].userid == userid) { %>
+                    <p><a href="/upvote/<%= answers[i].id %>">+</a> <%= answers[i].votes %> <a href="/downvote/<%= answers[i].id %>">-</a></p>
+                    <% if(userid && answers[i].userid == userid) { %>
                         <form action="/delete_answer/<%= answers[i].id %>" method="POST">
                             <button type="submit" class="btn">Löschen</button>
                         </form>

@@ -120,7 +120,7 @@ app.get('/questions', (req, res) => {
     });
 
     let sql = `SELECT 
-                users.username AS name, title, txt, tstamp, questions.img AS img, questions.id AS id
+                    users.username AS name, title, txt, tstamp, questions.img AS img, questions.id AS id
                 FROM 
                     users, questions 
                 WHERE 
@@ -186,6 +186,35 @@ app.get('/question/:id', (req, res) => {
     db.close();
 });
 
+app.get('/upvote/:id', (req, res) => {
+    let db = new sqlite3.Database('plant.db', (err) => {
+        if (err) { console.error(err.message) };
+    });
+
+    let sql = `UPDATE answers SET votes = votes + 1 WHERE id=?`;
+    db.run(sql, [req.params.id], err => {
+        if (err) {console.error(err.message)};
+        res.redirect('back');
+
+    })
+    db.close();
+});
+
+app.get('/downvote/:id', (req, res) => {
+    let db = new sqlite3.Database('plant.db', (err) => {
+        if (err) { console.error(err.message) };
+    });
+
+    let sql = `UPDATE answers SET votes = votes - 1 WHERE id=?`;
+    db.run(sql, [req.params.id], err => {
+        if (err) {console.error(err.message)};
+        res.redirect('back');
+    })
+    db.close();
+});
+
+
+
 //plant overview
 
 app.get('/plantoverview', (req, res) => {
@@ -216,7 +245,6 @@ app.get('/plantdetails/:id', (req, res) => {
 
         res.render('plantdetails', { posts });
     })
-
     db.close();
 });
 
@@ -238,7 +266,6 @@ app.post('/create_answer', (req, res) => {
         res.redirect('/question/' + req.body.questionid)
     })
     db.close();
-
 })
 
 
