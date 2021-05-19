@@ -24,7 +24,7 @@
             <div class="container-main">
 
                 <h3>Stelle deine Frage ...</h3>
-                <form action="create_question" method="POST" name="question" id="question" enctype="multipart/form-data">
+                <form action="/question/create" method="POST" name="question" id="question" enctype="multipart/form-data">
                     <input type="text" name="title" placeholder="Worum geht's?" class="textf" >
                     <br>
                     <textarea name="txt" id="txt" cols="50" rows="15" placeholder="Was genau ist dein Problem?"></textarea>
@@ -37,6 +37,8 @@
                 <h4>& füge ein Bild hinzu</h4>
                 <input type="file" name="img" id="" accept="image/jpeg" form="question">
             </div>
+
+            <a href="/question">Zurück</a>
 
         </div>
 
