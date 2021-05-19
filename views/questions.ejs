@@ -11,9 +11,11 @@
         <link rel="stylesheet" href="https://use.typekit.net/tal5phu.css">
     </head>
     <body>
-        <nav>
-            
-        </nav>
+        <% if (loggedin) { %>
+            <%- include('partials/navbar_loggedin') %>
+        <% } else { %>
+            <%- include('partials/navbar_loggedout') %>
+        <% } %>
         <main>
                 <div>
                 <% for (let i=0; i < questions.length; i++) { %>
