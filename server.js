@@ -196,9 +196,59 @@ app.post('/register',
 
 //GET profile
 app.get('/profile', (req, res) => {
-    if (req.session.user)
-        res.render('profile', { task: 'overview', username: req.session.user.name })
+    res.redirect('/profile/' + req.session.user.id)
 });
+
+app.get('/profile/:id', (req, res) => {
+    let name = req.session.user.name;
+    let id = req.session.user.id;
+    if (req.session && req.params.id == id){
+        res.render('profile', { username: name, userid: id})
+    } 
+    else {
+        res.redirect('/home');
+    }
+});
+
+
+//GET profile posts 
+app.get('/profile/:id/posts', (req, res) => {
+
+    let db = new sqlite3.Database('plant.db', (err) => {
+        if (err) { console.error(err.message) };
+    });
+
+    let sql = `SELECT * FROM posts WHERE userid=?`;
+    db.all(sql, [req.params.id], (err, posts) => {
+        if (err) { console.error(err.message) };
+
+        if (posts && posts.length > 0)
+            res.render('plantoverview', {posts, username: req.session.user.name});
+        else    
+            res.redirect('/profile')
+    })
+    db.close();
+});  
+
+//GET profile questions
+app.get('/profile/:id/questions', (req, res) => {
+
+    let db = new sqlite3.Database('plant.db', (err) => {
+        if (err) { console.error(err.message) };
+    });
+
+    let sql = `SELECT * FROM questions WHERE userid=?`;
+    db.all(sql, [req.params.id], (err, questions) => {
+        if (err) { console.error(err.message) };
+
+        if (questions && questions.length > 0)
+            res.render('question_overview', {questions, username: req.session.user.name, userid: req.session.user.id});
+        else    
+            res.redirect('/profile')
+    })
+    db.close();
+}); 
+
 
 app.get('/change_pw', (req, res) => {
     res.render('profile', { task: 'change_pw', username: req.session.user.name })
@@ -351,182 +401,7 @@ app.get('/plantdetails/:id', (req, res) => {
 });
 
 
-//questions and answers
-
-//GET questions overview
-app.get('/question', (req, res) => {
-
-    let loggedin = false;
-    if (req.session.user) 
-        loggedin = true;
-
-    let db = new sqlite3.Database('plant.db', (err) => {
-        if (err) { console.error(err.message) };
-    });
-
-    let sql = `SELECT 
-                    users.username AS name, title, txt, tstamp, questions.img AS img, questions.id AS id
-                FROM 
-                    users, questions 
-                WHERE 
-                    users.id = questions.userid`;
-    db.all(sql, (err, questions) => {
-        if (err) { console.error(err.message) };
-
-        if (questions && questions.length > 0) {
-            res.render('question_overview', { questions, loggedin})
-        }
-        else {
-            res.redirect('/question/create')
-        }
-    })
-    db.close();
-});
-
-//GET question detail
-app.get('/question/:id', (req, res) => {
-    let loggedin = false;
-    if (req.session.user) 
-        loggedin = true;
-
-    let db = new sqlite3.Database('plant.db', (err) => {
-        if (err) { console.error(err.message) };
-    });
-
-    let sql = `SELECT 
-                users.username AS name, title, txt, tstamp, questions.img AS img, questions.id AS id
-            FROM 
-                users, questions 
-            WHERE 
-                users.id = questions.userid
-            AND
-                questions.id=?`;
-
-    db.get(sql, [req.params.id], (err, question) => {
-        if (err) { console.error(err.message) };
-
-        if (question) {
-
-            let sql = `SELECT 
-                            tstamp, txt, votes, users.username AS name, users.id AS userid, answers.id as id
-                        FROM 
-                            answers, users 
-                        WHERE 
-                            questionid=?
-                        AND 
-                            users.id=answers.userid`;
-            db.all(sql, [question.id], (err, answers) => {
-                if (err) { console.error(err.message) };
-
-                if (answers && answers.length > 0) {
-                    res.render('question_detail', { question, answers, userid: req.session.user.id, loggedin})
-                }
-                else {
-                    res.render('question_detail', { question, loggedin});
-                }
-            });
-        }
-        else {
-            res.redirect('/question');
-        }
-    })
-    db.close();
-});
-
-//GET create question
-app.get('/question/create', (req, res) => {
-    if (req.session.user)
-        res.render('question_create', {});
-    else
-        res.redirect('/login');
-});
-
-//POST create question
-app.post('/question/create', (req, res) => {
-
-    let path = '';
-
-    if (req.files){
-        const file = req.files['img'];
-        let filename = 'images/users/' + 'req.session.user.id' + '-q-' + Date.now() + '.jpg' ;
-        file.mv(__dirname + '/public/' + filename, (err) => {
-            if (err) { console.error(err.message) }
-        });
-        path = filename;
-    };
-
-    let db = new sqlite3.Database('plant.db', (err) => {
-        if (err) { console.error(err.message) };
-        console.log('Connected to database');
-    });
-
-    let sql = `INSERT INTO questions (tstamp, userid, title, txt, img) VALUES (datetime('now', 'localtime'), ?, ?, ?, ?)`;
-    db.run(sql, [req.session.user.id, req.body.title, req.body.txt, path], (err) => {
-        if (err) console.error(err.message);
-    });
-
-    db.close();
-
-    res.redirect("/question");
-
-});
-
-//GET edit question 
-app.get('/question/:id/edit', (req, res) => {
-
-    let db = new sqlite3.Database('plant.db', (err) => {
-        if (err) { console.error(err.message) };
-    });
-
-    let sql = `SELECT * FROM questions WHERE id=?`;
-    db.get(sql, [req.params.id], (err, row) => {
-        if (err) console.error(err.message);
-
-        let context = {
-            id: row.id,
-            title: row.title,
-            txt: row.txt,
-            img: row.img
-        }
-        res.render('question_edit', {context});
-    })
-    db.close();
-});
-
-//POST edit question 
-app.post('/question/:id/edit', (req, res) =>{
-
-    let db = new sqlite3.Database('plant.db', err => {
-        if (err) console.error(err.message)
-    });
-
-    let sql = `UPDATE questions SET title=?, txt=? WHERE id=?`;
-    db.run(sql, [req.body.title, req.body.txt, req.params.id], err => {
-        if (err) console.error(err.message);
-        res.redirect('/question/' + req.params.id);
-    });
-    db.close();
-});
-
-//GET delete question 
-app.get('/question/:id/delete', (req, res) => {
-    let db = new sqlite3.Database('plant.db', (err) => {
-        if (err) { console.error(err.message) };
-    });
-
-    let sql = `DELETE FROM questions WHERE id=?`;
-    db.run(sql, [req.params.id], err => {
-        if (err) console.error(err.message);
-
-        sql = `DELETE FROM answers WHERE questionid=?`;
-        db.run(sql, [req.params.id], err => {
-            if (err) console.error(err.message);
-            res.redirect('/question');
-        });
-    });
-    db.close();
-});
-
+//answers
 
 //GET answer upvote
 app.get('/upvote/:id', (req, res) => {
@@ -591,3 +466,7 @@ app.post('/delete_answer/:id', (req, res) => {
     })
     db.close();
 })
+
+
+const question = require('./question');
+app.use('/question', question)
