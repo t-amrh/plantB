@@ -13,7 +13,7 @@
     </head>
     <body>
     <div class="nav-bg">
-        <% if (loggedin) { %>
+        <% if (userid) { %>
             <%- include('partials/navbar_loggedin') %>
         <% } else { %>
             <%- include('partials/navbar_loggedout') %>
@@ -38,9 +38,10 @@
                         <img class="icon" src="/icons/delete.png" alt="löschen"> -->
                         <br>
                         <br>
-                        <a href="/question/<%= question.id %>/edit">bearbeiten</a>
-                        <a href="/question/<%= question.id %>/delete">löschen</a>
-                    
+                        <% if(userid && question.userid == userid) { %>
+                            <a href="/question/<%= question.id %>/edit">bearbeiten</a>
+                            <a href="/question/<%= question.id %>/delete">löschen</a>
+                        <% } %>
                     </div>
                 </div>
                 <br>
@@ -63,7 +64,16 @@
 
                     <p><%=answers[i].txt %></p>
                     <br>
-                    <p><a href="/upvote/<%= answers[i].id %>">+</a> <%= answers[i].votes %> <a href="/downvote/<%= answers[i].id %>">-</a></p>
+                    
+                    <p>
+                        <% if (userid){ %>
+                            <a href="/upvote/<%= answers[i].id %>">+</a>
+                        <% } %>
+                        <%= answers[i].votes %> 
+                        <% if (userid){ %>
+                            <a href="/downvote/<%= answers[i].id %>">-</a>
+                        <% } %>
+                    </p>
                     <% if(userid && answers[i].userid == userid) { %>
                         <form action="/delete_answer/<%= answers[i].id %>" method="POST">
                             <button type="submit" class="btn">Löschen</button>
@@ -79,6 +89,7 @@
         <br>
         <br>
         <br>
+        <% if (userid){ %>
         <div class="container-head">
 
             <form action="/create_answer" method="POST" id="answer">
@@ -89,5 +100,6 @@
                 <input type="hidden" name="questionid" id="" form="answer" value="<%=question.id%>">
 
         </div>
+        <% } %>
     </body>
 </html>
