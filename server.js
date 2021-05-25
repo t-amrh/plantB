@@ -312,15 +312,44 @@ app.post('/delete_user',
 //posts 
 
 //GET create post
-app.get('/create_post', (req, res) => {
+app.get('/plant_create', (req, res) => {
     if (req.session.user)
-        res.render('create_post', {});
+        res.render('plant_create', {});
     else
-        res.redirect('/home');
+        res.render('login', { err_msg: "Melde dich bitte an, wenn du ein PlantSheet erstellen möchtest" });
+});
+
+app.post('/plantcreate', (req, res) => {
+
+    let path = '';
+
+    if (req.files) {
+        const file = req.files['img'];
+        let filename = 'images/users/' + 'req.session.user.id' + '-q-' + Date.now() + '.jpg';
+        file.mv(__dirname + '/public/' + filename, (err) => {
+            if (err) { console.error(err.message) }
+        });
+        path = filename;
+    };
+
+    let db = new sqlite3.Database('plant.db', (err) => {
+        if (err) { console.error(err.message) };
+        console.log('Connected to database');
+    });
+
+    let sql = `INSERT INTO posts (tstamp, userid, title, deutscherName, wuchshoehe, wuchstyp, standort, giessen, schwierigkeit, temperatur, erde, umtopfen, duengen, blattfarbe, blattform, bluetezeit, bluetenfarbe, kalkvertraeglichkeit, img) VALUES (datetime('now', 'localtime'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    db.run(sql, [req.session.user.id, req.body.title, req.body.deutscherName, req.body.wuchshoehe, req.body.wuchstyp, req.body.standort, req.body.giessen, req.body.schwierigkeit, req.body.temperatur, req.body.erde, req.body.umtopfen, req.body.duengen, req.body.blattfarbe, req.body.blattform, req.body.bluetezeit, req.body.bluetenfarbe, req.body.kalkvertraeglichkeit, path], (err) => {
+        if (err) console.error(err.message);
+    });
+
+    db.close();
+
+    res.redirect("/plant_overview");
+
 });
 
 //GET plant overview
-app.get('/plantoverview', (req, res) => {
+app.get('/plant_overview', (req, res) => {
     let db = new sqlite3.Database('plant.db', (err) => {
         if (err) { console.error(err.message) };
     });
@@ -328,14 +357,14 @@ app.get('/plantoverview', (req, res) => {
     db.all(`SELECT * FROM posts`, (err, posts) => {
         if (err) { console.error(err.message) };
 
-        res.render('plantoverview', { posts });
+        res.render('plant_overview', { posts });
     })
 
     db.close();
 });
 
 //GET plant details
-app.get('/plantdetails/:id', (req, res) => {
+app.get('/plant_details/:id', (req, res) => {
 
     let db = new sqlite3.Database('plant.db', (err) => {
         if (err) { console.error(err.message) };
@@ -345,7 +374,7 @@ app.get('/plantdetails/:id', (req, res) => {
     db.get(`SELECT * FROM posts WHERE posts.id = ?`, [req.params.id], (err, posts) => {
         if (err) { console.error(err.message) };
 
-        res.render('plantdetails', { posts });
+        res.render('plant_details', { posts });
     })
     db.close();
 });
@@ -357,7 +386,7 @@ app.get('/plantdetails/:id', (req, res) => {
 app.get('/question', (req, res) => {
 
     let loggedin = false;
-    if (req.session.user) 
+    if (req.session.user)
         loggedin = true;
 
     let db = new sqlite3.Database('plant.db', (err) => {
@@ -374,7 +403,7 @@ app.get('/question', (req, res) => {
         if (err) { console.error(err.message) };
 
         if (questions && questions.length > 0) {
-            res.render('question_overview', { questions, loggedin})
+            res.render('question_overview', { questions, loggedin })
         }
         else {
             res.redirect('/question/create')
@@ -386,7 +415,7 @@ app.get('/question', (req, res) => {
 //GET question detail
 app.get('/question/:id', (req, res) => {
     let loggedin = false;
-    if (req.session.user) 
+    if (req.session.user)
         loggedin = true;
 
     let db = new sqlite3.Database('plant.db', (err) => {
@@ -419,10 +448,10 @@ app.get('/question/:id', (req, res) => {
                 if (err) { console.error(err.message) };
 
                 if (answers && answers.length > 0) {
-                    res.render('question_detail', { question, answers, userid: req.session.user.id, loggedin})
+                    res.render('question_detail', { question, answers, userid: req.session.user.id, loggedin })
                 }
                 else {
-                    res.render('question_detail', { question, loggedin});
+                    res.render('question_detail', { question, loggedin });
                 }
             });
         }
@@ -446,9 +475,9 @@ app.post('/question/create', (req, res) => {
 
     let path = '';
 
-    if (req.files){
+    if (req.files) {
         const file = req.files['img'];
-        let filename = 'images/users/' + 'req.session.user.id' + '-q-' + Date.now() + '.jpg' ;
+        let filename = 'images/users/' + 'req.session.user.id' + '-q-' + Date.now() + '.jpg';
         file.mv(__dirname + '/public/' + filename, (err) => {
             if (err) { console.error(err.message) }
         });
@@ -488,13 +517,13 @@ app.get('/question/:id/edit', (req, res) => {
             txt: row.txt,
             img: row.img
         }
-        res.render('question_edit', {context});
+        res.render('question_edit', { context });
     })
     db.close();
 });
 
 //POST edit question 
-app.post('/question/:id/edit', (req, res) =>{
+app.post('/question/:id/edit', (req, res) => {
 
     let db = new sqlite3.Database('plant.db', err => {
         if (err) console.error(err.message)
@@ -536,7 +565,7 @@ app.get('/upvote/:id', (req, res) => {
 
     let sql = `UPDATE answers SET votes = votes + 1 WHERE id=?`;
     db.run(sql, [req.params.id], err => {
-        if (err) {console.error(err.message)};
+        if (err) { console.error(err.message) };
         res.redirect('back');
     })
     db.close();
@@ -549,7 +578,7 @@ app.get('/downvote/:id', (req, res) => {
 
     let sql = `UPDATE answers SET votes = votes - 1 WHERE id=?`;
     db.run(sql, [req.params.id], err => {
-        if (err) {console.error(err.message)};
+        if (err) { console.error(err.message) };
         res.redirect('back');
     })
     db.close();
