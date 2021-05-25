@@ -11,13 +11,14 @@
         <link rel="stylesheet" href="https://use.typekit.net/tal5phu.css">
     </head>
     <body>
-        <% if (loggedin) { %>
+        <% if (userid) { %>
             <%- include('partials/navbar_loggedin') %>
         <% } else { %>
             <%- include('partials/navbar_loggedout') %>
         <% } %>
         <main>
                 <div>
+                    <a href="/question/create">Frage erstellen</a>
                 <% for (let i=0; i < questions.length; i++) { %>
                     <div id="question">
                         <br>

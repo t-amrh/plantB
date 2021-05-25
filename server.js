@@ -196,9 +196,59 @@ app.post('/register',
 
 //GET profile
 app.get('/profile', (req, res) => {
-    if (req.session.user)
-        res.render('profile', { task: 'overview', username: req.session.user.name })
+    res.redirect('/profile/' + req.session.user.id)
 });
+
+app.get('/profile/:id', (req, res) => {
+    let name = req.session.user.name;
+    let id = req.session.user.id;
+    if (req.session && req.params.id == id){
+        res.render('profile', { username: name, userid: id})
+    } 
+    else {
+        res.redirect('/home');
+    }
+});
+
+
+//GET profile posts 
+app.get('/profile/:id/posts', (req, res) => {
+
+    let db = new sqlite3.Database('plant.db', (err) => {
+        if (err) { console.error(err.message) };
+    });
+
+    let sql = `SELECT * FROM posts WHERE userid=?`;
+    db.all(sql, [req.params.id], (err, posts) => {
+        if (err) { console.error(err.message) };
+
+        if (posts && posts.length > 0)
+            res.render('plantoverview', {posts, username: req.session.user.name});
+        else    
+            res.redirect('/profile')
+    })
+    db.close();
+});  
+
+//GET profile questions
+app.get('/profile/:id/questions', (req, res) => {
+
+    let db = new sqlite3.Database('plant.db', (err) => {
+        if (err) { console.error(err.message) };
+    });
+
+    let sql = `SELECT * FROM questions WHERE userid=?`;
+    db.all(sql, [req.params.id], (err, questions) => {
+        if (err) { console.error(err.message) };
+
+        if (questions && questions.length > 0)
+            res.render('question_overview', {questions, username: req.session.user.name, userid: req.session.user.id});
+        else    
+            res.redirect('/profile')
+    })
+    db.close();
+}); 
+
 
 app.get('/change_pw', (req, res) => {
     res.render('profile', { task: 'change_pw', username: req.session.user.name })
@@ -380,6 +430,7 @@ app.get('/plant_details/:id', (req, res) => {
 });
 
 
+<<<<<<< HEAD
 //questions and answers
 
 //GET questions overview
@@ -556,6 +607,9 @@ app.get('/question/:id/delete', (req, res) => {
     db.close();
 });
 
+=======
+//answers
+>>>>>>> 225af4bab5c4019fe89cbcdd77c77a0c4ae578f7
 
 //GET answer upvote
 app.get('/upvote/:id', (req, res) => {
@@ -620,3 +674,7 @@ app.post('/delete_answer/:id', (req, res) => {
     })
     db.close();
 })
+
+
+const question = require('./question');
+app.use('/question', question)

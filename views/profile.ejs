@@ -26,11 +26,11 @@
                 <h2><span style="font-weight: 300;"> Profil von </span><%=username%></h2>
                 <br>
                 <ul>
-                    <li><a href="">Deine PLANTage</a></li>
+                    <li><a href="/profile/<%=userid%>/posts">Deine PLANTage</a></li>
                     <br>
-                    <li><a href="">Deine Fragen</a></li>
+                    <li><a href="/profile/<%=userid%>/questions">Deine Fragen</a></li>
                     <br>
-                    <li><a href="">Profil verwalten</a></li>
+                    <li><a href="/profile/<%=userid%>/settings">Profil verwalten</a></li>
                 </ul>
                 <br>
                 <%= typeof scs_msg !='undefined' ? scs_msg : '' %>
