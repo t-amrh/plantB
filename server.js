@@ -609,7 +609,6 @@ app.get('/question/:id/delete', (req, res) => {
 
 =======
 //answers
->>>>>>> 225af4bab5c4019fe89cbcdd77c77a0c4ae578f7
 
 //GET answer upvote
 app.get('/upvote/:id', (req, res) => {
