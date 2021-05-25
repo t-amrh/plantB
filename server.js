@@ -202,9 +202,9 @@ app.get('/profile', (req, res) => {
 app.get('/profile/:id', (req, res) => {
     let name = req.session.user.name;
     let id = req.session.user.id;
-    if (req.session && req.params.id == id) {
-        res.render('profile', { username: name, userid: id })
-    }
+    if (req.session && req.params.id == id){
+        res.render('profile', { username: name, userid: id})
+    } 
     else {
         res.redirect('/home');
     }
@@ -223,12 +223,12 @@ app.get('/profile/:id/posts', (req, res) => {
         if (err) { console.error(err.message) };
 
         if (posts && posts.length > 0)
-            res.render('plantoverview', { posts, username: req.session.user.name });
-        else
+            res.render('plantoverview', {posts, username: req.session.user.name});
+        else    
             res.redirect('/profile')
     })
     db.close();
-});
+});  
 
 //GET profile questions
 app.get('/profile/:id/questions', (req, res) => {
@@ -242,12 +242,12 @@ app.get('/profile/:id/questions', (req, res) => {
         if (err) { console.error(err.message) };
 
         if (questions && questions.length > 0)
-            res.render('question_overview', { questions, username: req.session.user.name, userid: req.session.user.id });
-        else
+            res.render('question_overview', {questions, username: req.session.user.name, userid: req.session.user.id});
+        else    
             res.redirect('/profile')
     })
     db.close();
-});
+}); 
 
 
 app.get('/change_pw', (req, res) => {
