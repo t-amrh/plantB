@@ -23,13 +23,44 @@
             </div>
 
             <div class="container-main">
-                <% if (task=='overview' ) { %>
-                    <%- include('partials/profile/overview'); %>
-                <% } else if (task=='change_pw' ) { %>
-                    <%- include('partials/profile/change_pw'); %>
-                <% } else if (task=='delete_user' ) { %>
-                    <%- include('partials/profile/delete_user'); %>
-                <% } %>
+                <h2><span style="font-weight: 300;"> Profil von </span><%=username%></h2>
+                <br>
+                
+                    Passwort ändern
+                    <div>
+                        <form action="change" method="POST">
+                            <input class="textf" type="password" name="pw_old" id="pw-old" placeholder="Altes Passwort"><br>
+                            <input class="textf" type="password" name="pw_new" id="pw-new" placeholder="Neues Passwort"><br>
+                            <input class="textf" type="password" name="pw_rep" id="pw-rep" placeholder="Passwort wiederholen"><br>
+                            <input type="checkbox" name="cleartext" id="cleartext" onchange="show_pw('pw-old'); show_pw('pw-new'); show_pw('pw-rep');">
+                            <label for="cleartext">
+                                <span class="cleartext">Passwort anzeigen</span>
+                            </label>
+                            <div class="error-msg">
+                                <p><%= typeof err_msg != 'undefined' ? err_msg : '' %></p>
+                            </div>
+                            <input class="btn" type="submit" name="" id="">
+                        </form>
+                    </div>
+                    <br>
+                    Profil löschen
+                    <form action="delete" method="POST">
+                        <input type="password" name="password" id="password" placeholder="Passwort"><br>
+                        <label for="cleartext"><span class="cleartext">Passwort anzeigen</span>
+                            <input type="checkbox" name="cleartext" id="cleartext" onchange="show_pw('password'); ">
+                        </label><br>
+                        <div class="error-msg">
+                            <p><%= typeof err_msg != 'undefined' ? err_msg : '' %></p>
+                        </div>
+                        <input type="submit" name="" id="">
+                    </form>
+              
+                <br>
+                <%= typeof scs_msg !='undefined' ? scs_msg : '' %>
+
+                <a href="/profile">Zurück</a>
+
+
             </div>
         </div>
     </main>

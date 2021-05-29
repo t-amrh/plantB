@@ -159,20 +159,4 @@ router.get('/:id/delete', auth, (req, res) => {
     db.close();
 });
 
-
-// router.get('/create', auth, (req, res) => {
-//     res.send('Create a q')
-// });
-// router.get('/:id',(req, res) => {
-//     res.send('q ' + req.params.id + ' details')
-// });
-
-// router.get('/:id/edit', auth, (req, res) => {
-//     res.send('edit question ' + req.params.id)
-// })
-
-// router.get('/:id/delete',auth, (req, res) => {
-//     res.send('delete question ' + req.params.id)
-// })
-
 module.exports = router;
