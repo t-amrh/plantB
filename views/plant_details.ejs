@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Details - <%= posts.deutscherName%>
+    </title>
+    <link rel="stylesheet" href="/css/style-plantoverview.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Montserrat&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://use.typekit.net/tal5phu.css">
+</head>
+
+<body>
+    <nav>
+        <a href="/home">Home</a>
+        |
+        <a href="/plant_overview">Pflanzenübersicht</a>
+        |
+        <% if(typeof username=='undefined' ){ %>
+            <a href="/login">Login</a>
+            |
+            <a href="/register">Registrieren</a>
+            <% }else{ %>
+                <div class="dropdown">
+                    <button class="dropbtn">
+                        <%=username%>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="/profile">Dein Profil</a>
+                        <a href="">Deine PLANTage</a>
+                    </div>
+                </div>
+                |
+                <a href="/logout">Logout</a>
+                <% }; %>
+    </nav>
+
+    <main>
+        <div>
+
+            <h1 class="detailheader">
+                <%= posts.deutscherName%>
+
+            </h1>
+
+            <img src="<%= posts.img %>" class="plantimg2" alt="">
+
+            <table>
+                <tr>
+                    <td class="lat">lat. Name</td>
+                    <td class="lat">
+                        <%= posts.title%>
+                    </td>
+                <tr>
+                    <td>Wuchshöhe </td>
+                    <td>
+                        <%= posts.wuchshoehe%>
+                    </td>
+                <tr>
+                    <td>Wuchstyp </td>
+                    <td>
+                        <%= posts.wuchstyp%>
+                    </td>
+                <tr>
+                    <td>Standort </td>
+                    <td>
+                        <%= posts.standort%>
+                    </td>
+                <tr>
+                    <td>Gießen </td>
+                    <td>
+                        <%= posts.giessen%>
+                    </td>
+                <tr>
+                    <td>Schwierigkeit </td>
+                    <td>
+                        <%= posts.schwierigkeit%>
+                    </td>
+                <tr>
+                    <td>Temperatur </td>
+                    <td>
+                        <%= posts.temperatur%>
+                    </td>
+                <tr>
+                    <td>Erde </td>
+                    <td>
+                        <%= posts.erde%>
+                    </td>
+                <tr>
+                    <td>Umtopfen </td>
+                    <td>
+                        <%= posts.umtopfen%>
+                    </td>
+                <tr>
+                    <td>Düngen </td>
+                    <td>
+                        <%= posts.duengen%>
+                    </td>
+                <tr>
+                    <td>Blattfarbe </td>
+                    <td>
+                        <%= posts.blattfarbe%>
+                    </td>
+                <tr>
+                    <td>Blattform </td>
+                    <td>
+                        <%= posts.blattform%>
+                    </td>
+                <tr>
+                    <td>Blütezeit </td>
+                    <td>
+                        <%= posts.bluetezeit%>
+                    </td>
+                <tr>
+                    <td>Blütenfarbe </td>
+                    <td>
+                        <%= posts.bluetenfarbe%>
+                    </td>
+                <tr>
+                    <td>Kalkverträglichkeit </td>
+                    <td>
+                        <%= posts.kalkvertraeglichkeit%>
+                    </td>
+
+            </table>
+        </div>
+
+
+
+    </main>
+
+</body>

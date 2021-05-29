@@ -14,7 +14,7 @@
     <nav>
         <a href="/home">Home</a>
         |
-        <a href="/plantoverview">Pflanzenübersicht</a>
+        <a href="/plant_overview">Pflanzenübersicht</a>
         |
         <% if(typeof username=='undefined' ){ %>
             <a href="/login">Login</a>
@@ -35,27 +35,31 @@
                 <% }; %>
     </nav>
 
-    <main>
-        
+    <main class="margintop">
+
         <% for (let i=0; i < posts.length; i++) { %>
-            
-                <a href="/plantdetails/<%=posts[i].id%>" class="">
-                    <div class="plant">
+
+            <a href="/plant_details/<%=posts[i].id%>" class="">
+                <div class="plant">
                     <img src="<%= posts[i].img %>" class="plantimg" alt="">
-                    <h2><%= posts[i].deutscherName %></h2>
+                    <h2>
+                        <%= posts[i].deutscherName %>
+                    </h2>
                     <div class="lat">(lat. <%= posts[i].title %>)</div>
                     <br>
                     Schwierigkeitsgrad:
-                    <h3><%= posts[i].schwierigkeit %></h3>
+                    <h3>
+                        <%= posts[i].schwierigkeit %>
+                    </h3>
                     Mehr Infos mit einem CLICK!
                 </div>
             </a>
-     
+
             <% } %>
     </main>
     <br>
 
-    <a href="/newplant" class="newplant">
+    <a href="/plant_create" class="plant">
         <img src="/images/lolol.jpg" class="newplantimg" alt="">
     </a>
 
