@@ -8,34 +8,39 @@
     <link rel="preconnect" href="https://fonts.gstatic.com"> 
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.typekit.net/tal5phu.css">
-    <link rel="stylesheet" href="css/style-logreg.css">
+    <link rel="stylesheet" href="/css/style2.css">
 
 </head>
 <body>
+    <%- include("partials/navbar_loggedin") %>
     
 
     <main>
-        <div class="container">
+        <div class="content">
 
             <div class="headline">
-
+                <h2>Stelle deine Frage</h2>
             </div>
         
-            <div class="container-main">
+            <div class="right">
 
-                <h3>Stelle deine Frage ...</h3>
-                <form action="/question/create" method="POST" name="question" id="question" enctype="multipart/form-data">
-                    <input type="text" name="title" placeholder="Worum geht's?" class="textf" >
-                    <br>
-                    <textarea name="txt" id="txt" cols="50" rows="15" placeholder="Was genau ist Dein Problem?"></textarea>
-                    <br>
-                    <input type="submit" class="btn">
-                </form>
+                <div class="formular">
+                    <form class="formular" action="/question/create" method="POST" name="question" id="question" enctype="multipart/form-data">
+                        <input type="text" name="title" placeholder="Worum geht's?" class="textf" >
+                        <br>
+                        <textarea name="txt" id="txt" cols="50" rows="15" placeholder="Was genau ist Dein Problem?"></textarea>
+                        <br>
+                        <input type="submit" class="btn">
+                    </form>
+                </div>
             </div>
 
-            <div class="container-head">
-                <h4>& füge ein Bild hinzu</h4>
-                <input type="file" name="img" id="" accept="image/jpeg" form="question">
+            <div class="left">
+                <div class="addpic">
+                    <div class="plus"> +  </div>
+                    <p> Füge ein Bild hinzu </p>
+                    <input type="file" name="img" id="" accept="image/jpeg" form="question">
+                </div>
             </div>
 
             <!-- <a href="/question">Zurück</a> -->
