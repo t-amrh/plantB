@@ -23,7 +23,7 @@
                     <div id="question">
                         <br>
                         <h2><a href="/question/<%=questions[i].id%>"><%= questions[i].title  %></a></h2>
-                        <h4><%= questions[i].tstamp %> von <%= questions[i].name %></h4>
+                        <h4><%= questions[i].tstamp %> von <%= questions[i].name || username %></h4>
                         <br>
                     </div>
                 <% } %>
