@@ -129,7 +129,7 @@ router.post('/:id/delete', auth, perm,
                 next();
             }
             else {
-                res.render('profile', { task: 'delete_user', username: req.session.user.name, err_msg: 'Passwort falsch' })
+                res.render('profile', { task: 'delete_user', username: req.session.user.name, err_msg: 'Passwort falsch', userid: req.session.user.id })
             }
         });
         db.close(() => console.log('Connection closed'));

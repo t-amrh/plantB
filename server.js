@@ -184,7 +184,7 @@ app.post('/register',
                 name: row.username,
                 id: row.id,
             };
-            res.redirect('/welcome');
+            res.redirect('/profile/' + req.session.user.id);
 
         });
         db.close(() => console.log('Connection closed'));
