@@ -329,7 +329,7 @@ app.post('/create_answer', (req, res) => {
 })
 
 //POST delete answer
-app.post('/delete_answer/:id', (req, res) => {
+app.get('/delete_answer/:id', (req, res) => {
     let db = new sqlite3.Database('plant.db', (err) => {
         if (err) { console.error(err.message) };
     });

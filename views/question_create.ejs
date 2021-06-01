@@ -13,42 +13,46 @@
 </head>
 <body>
     <%- include("partials/navbar_loggedin") %>
-    
-
-    <main>
-        <div class="content">
-
-            <div class="headline">
-                <h2>Stelle deine Frage</h2>
-            </div>
-        
-            <div class="right">
-
-                <div class="formular">
-                    <form class="formular" action="/question/create" method="POST" name="question" id="question" enctype="multipart/form-data">
-                        <input type="text" name="title" placeholder="Worum geht's?" class="textf" >
-                        <br>
-                        <textarea name="txt" id="txt" cols="50" rows="15" placeholder="Was genau ist Dein Problem?"></textarea>
-                        <br>
-                        <input type="submit" class="btn">
-                    </form>
-                </div>
-            </div>
-
-            <div class="left">
-                <div class="addpic">
-                    <div class="plus"> +  </div>
-                    <p> Füge ein Bild hinzu </p>
-                    <input type="file" name="img" id="" accept="image/jpeg" form="question">
-                </div>
-            </div>
-
-            <!-- <a href="/question">Zurück</a> -->
-
+   
+    <main style="height: 90vh;">
+        <div class="headline">
+            <h3>Stelle deine Frage</h3>
         </div>
+
+       
+
+            <div class="content">
+
+                <div class="left">
+                    <div class="addpic">
+                        <div class="plus"> +  </div>
+                        <p> Füge ein Bild hinzu </p>
+                        <input type="file" name="img" id="" accept="image/jpeg" form="question" style="border: none"> 
+                    </div>
+                </div>
+
+                <div class="right">
+
+                    <div class="formular">
+                        <form class="formular" action="/question/create" method="POST" name="question" id="question" enctype="multipart/form-data">
+                            <input type="text" name="title" placeholder="Worum geht's?" class="textf" >
+                            <br>
+                            <textarea name="txt" id="txt" cols="50" rows="15" placeholder="Was genau ist Dein Problem?"></textarea>
+                            <br>
+                            <input type="submit" class="btn">
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        <div class="backlink" style="position: relative; left: 45%;">
+            <a href="/question/">Zurück</a>
+        </div>
+
+       
 
     </main>
 
-
+</div>
 </body>
 </html>

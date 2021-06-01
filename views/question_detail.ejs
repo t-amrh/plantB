@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Plant B</title>
-        <link rel="stylesheet" href="/css/style-logreg.css">
+   
 
         <link rel="preconnect" href="https://fonts.gstatic.com"> 
         <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Montserrat&display=swap" rel="stylesheet">
@@ -13,94 +13,101 @@
         <link rel="stylesheet" href="/css/style2.css">
     </head>
     <body>
-    <div class="nav-bg">
-        <% if (userid) { %>
-            <%- include('partials/navbar_loggedin') %>
-        <% } else { %>
-            <%- include('partials/navbar_loggedout') %>
-        <% } %>
-    </div>
-  
-        <div class="container-head">
+        <%- include('partials/navbar_loggedin') %>
 
-            <div class="container-main">
-                <div class="post">
-                    <div>
-                        <img src="/<%= question.img %>" alt="" class="logo-login">
-                    </div>
+        <div class="detail">
 
-                    <div>
-                        <h2><%= question.title  %></h2>
-                        <h4><%= question.tstamp %> von <%= question.name %></h4>
-                    </div>
-                    <div>
-                        <p><%= question.txt %></p>
-                        <!-- <img class="icon" src="/icons/edit.png" alt="bearbeiten">
-                        <img class="icon" src="/icons/delete.png" alt="löschen"> -->
-                        <br>
+            <div class="headline">
+                <h2>Frage <%= question.id %></h2>
+            </div>
+
+            <div class="createlink">
+                <a href="/question">Zurück</a>
+            </div>
+            <div class="detailpost">
+               
+                <!-- <div class="detailpic"> -->
+                    <img src="/<%= question.img %>"  alt=""  class="bigpic">
+
+                <!-- </div>   -->
+            
+                <div class="detailright">
+                    <div class="detailtxt">
+                        <div class="detailhead">
+                            <h4><%= question.tstamp %> von <%= question.name %></h4>
+                            <h2><%= question.title  %></h2>
+                        </div>
+                        <div class="detailmain">
+                            <p><%= question.txt %></p>
+                            <!-- <img class="icon" src="/icons/edit.png" alt="bearbeiten">
+                            <img class="icon" src="/icons/delete.png" alt="löschen"> -->
+                        </div>
                         <br>
                         <% if(userid && question.userid == userid) { %>
-                            <a href="/question/<%= question.id %>/edit">bearbeiten</a>
-                            <a href="/question/<%= question.id %>/delete">löschen</a>
+                        <div class="editlinks">
+                            <a class="editlinks" href="/question/<%= question.id %>/edit">bearbeiten</a>
+                            <a class="editlinks" href="/question/<%= question.id %>/delete">löschen</a>
+                        </div>
                         <% } %>
+                            
                     </div>
                 </div>
-                <br>
-                    <a href="/question">Zurück</a>
-                
+              
             </div>
-        </div>
-        <br>
-        <br>
-        <br>
-        <br>
-        <div class="container-head" id="answers">
-
+       
+            <h3>Antworten:</h3>
+            <br>
             <% if(typeof answers != 'undefined' && answers.length > 0) { %>
 
-                <h3>Antworten:</h3>
-                <% for(let i=0; i < answers.length; i++) { %>
+                
 
-                    <p style="font-size: 0.75rem;"><%=answers[i].tstamp%> von <%=answers[i].name%>:</p>
+                    <% for(let i=0; i < answers.length; i++) { %>
+                    <span style="position: relative; right: 17%;" ><%=answers[i].tstamp%> von <%=answers[i].name%>:</span>
+                    <div class="detailanswer" id="answers">
+                        
+                        <div class="vote">
+                            <% if (userid){ %>
+                                <a href="/upvote/<%= answers[i].id %>">+</a>
+                            <% } %>
+                            <%= answers[i].votes %> 
+                            <% if (userid){ %>
+                                <a href="/downvote/<%= answers[i].id %>">-</a>
+                            <% } %>
+                        </div>
 
-                    <p><%=answers[i].txt %></p>
-                    <br>
-                    
-                    <p>
-                        <% if (userid){ %>
-                            <a href="/upvote/<%= answers[i].id %>">+</a>
+                        <div class="answertxt">
+                            
+                            <%=answers[i].txt %>
+                        </div>
+
+                        <% if(userid && answers[i].userid == userid) { %>
+                            
+                            <a href="/delete_answer/<%=answers[i].id%>" class="editlinks"> löschen </a>
+                                
                         <% } %>
-                        <%= answers[i].votes %> 
-                        <% if (userid){ %>
-                            <a href="/downvote/<%= answers[i].id %>">-</a>
-                        <% } %>
-                    </p>
-                    <% if(userid && answers[i].userid == userid) { %>
-                        <form action="/delete_answer/<%= answers[i].id %>" method="POST">
-                            <button type="submit" class="btn">Löschen</button>
-                        </form>
-                    <% } %>
-                    <p>______________________</p>
+                   
+                </div>
                 <% } %>
+
             <% } else { %>
-                <p>Keine Antworten vorhanden</p>
+                <div class="detailpost" id="answers">
+                    <p>Keine Antworten vorhanden</p>
+                </div>
             <% } %>
-            
-        </div>
-        <br>
-        <br>
-        <br>
-        <% if (userid){ %>
-        <div class="container-head">
-
-            <form action="/create_answer" method="POST" id="answer">
-            </form>
-                <textarea name="txt" id="txt" cols="30" rows="10" placeholder="Deine Antwort" form="answer"></textarea>
+        
                 <br>
-                <input type="submit" name="" id="" form="answer">
-                <input type="hidden" name="questionid" id="" form="answer" value="<%=question.id%>">
+            <% if (userid){ %>
+                <div class="formular">
 
+                    <form action="/create_answer" method="POST" id="answer">
+                    </form>
+                    <textarea class="textf" name="txt" id="txt" cols="30" rows="10" placeholder="Deine Antwort" form="answer"></textarea>
+                    
+                    <input class="btn" type="submit" name="" id="" form="answer">
+                    <input type="hidden" name="questionid" id="" form="answer" value="<%=question.id%>">
+                </div>
+            <% } %>
         </div>
-        <% } %>
+        
     </body>
 </html>

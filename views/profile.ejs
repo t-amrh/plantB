@@ -21,21 +21,18 @@
 <body>
     <%- include('partials/navbar_loggedin') %>
     <main>
+
+        <div class="headline">
+            <h2> <span style="font-weight: 300;"> Herzlich Wilkommen,</span> <%=username%><span style="font-weight: 300;">!</span></h2>
+        </div>
+
         <div class="content">
 
-            <div class="headline">
-                <h1> <span style="font-weight: 300;"> Herzlich Wilkommen,</span> <%=username%><span style="font-weight: 300;">!</span></h1>
-            </div>
-
             <div class="left">
-                <!-- <h1>Plant B</h1>
-                <img class="logo-login" src="/images/leavesbg.jpg" alt=""> -->
                 <img class="profilpic" src="/icons/create.png" alt="">
-                
             </div>
 
             <div class="right">
-                
                 <div class="field">
                     <a class="link" href="/profile/<%=userid%>/posts">⟶ &nbsp;&nbsp; Deine PLANTage</a>
                 </div>    
@@ -45,13 +42,10 @@
                 <div class="field">   
                     <a class="link" href="/profile/<%=userid%>/settings"> ⟶ &nbsp;&nbsp; Profil verwalten</a>
                 </div>
-                
                 <%= typeof scs_msg !='undefined' ? scs_msg : '' %>
             </div>
-
         </div>
     </main>
     <script src="/scripts/register.js"></script>
 </body>
-
 </html>

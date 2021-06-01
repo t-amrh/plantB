@@ -3,7 +3,7 @@
 
 <head>
     <title>Plant B - Pflanzenübersicht</title>
-    <link rel="stylesheet" href="/css/style-plantoverview.css">
+    <link rel="stylesheet" href="/css/style2.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Montserrat&display=swap"
         rel="stylesheet">
@@ -11,58 +11,53 @@
 </head>
 
 <body>
-    <nav>
-        <a href="/home">Home</a>
-        |
-        <a href="/plant_overview">Pflanzenübersicht</a>
-        |
-        <% if(typeof username=='undefined' ){ %>
-            <a href="/login">Login</a>
-            |
-            <a href="/register">Registrieren</a>
-            <% }else{ %>
-                <div class="dropdown">
-                    <button class="dropbtn">
-                        <%=username%>
-                    </button>
-                    <div class="dropdown-content">
-                        <a href="/profile">Dein Profil</a>
-                        <a href="">Deine PLANTage</a>
-                    </div>
+    <%- include('partials/navbar_loggedin') %>
+
+    <main>
+
+        <div class="overview">
+            
+            <div class="headline">
+                <h2>PLANTage</h2>
+            </div>
+            <br>
+            <div class="createlink">
+                <a  href="/plant_create">+ PLANTsheet erstellen</a>
+            </div>
+
+        
+
+            <% for (let i=0; i < posts.length; i++) { %>
+
+            
+            <div class="post">
+                <a href="/plant_details/<%=posts[i].id%>" class="">
+                <div class="postpic">
+                    <img src="<%= posts[i].img %>" class="midpic" alt="">
                 </div>
-                |
-                <a href="/logout">Logout</a>
-                <% }; %>
-    </nav>
-
-    <main class="margintop">
-
-        <% for (let i=0; i < posts.length; i++) { %>
-
-            <a href="/plant_details/<%=posts[i].id%>" class="">
-                <div class="plant">
-                    <img src="<%= posts[i].img %>" class="plantimg" alt="">
+                <div class="posttxt">
                     <h2>
                         <%= posts[i].deutscherName %>
                     </h2>
-                    <div class="lat">(lat. <%= posts[i].title %>)</div>
+                    <em>  (lat. <%= posts[i].title %>)  </em><br>
                     <br>
-                    Schwierigkeitsgrad:
-                    <h3>
-                        <%= posts[i].schwierigkeit %>
-                    </h3>
-                    Mehr Infos mit einem CLICK!
+                    <strong>
+                    Schwierigkeitsgrad:</strong>
+                    <%= posts[i].schwierigkeit %>
+                    
                 </div>
             </a>
+            </div>
+
+           
+         
 
             <% } %>
+
+                <br>
+                <br>
+                <br>
+        </div>
     </main>
-    <br>
-
-    <a href="/plant_create" class="plant">
-        <img src="/images/lolol.jpg" class="newplantimg" alt="">
-    </a>
-
-</body>
-
+ </body>
 </html>

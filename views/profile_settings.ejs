@@ -16,11 +16,12 @@
 <body>
     <%- include('partials/navbar_loggedin') %>
     <main>
-        <div class="content">
 
-            <div class="headline">
-                <h2><span style="font-weight: 300;"> Profil von </span><%=username%></h2>
-            </div>
+        <div class="headline">
+            <h2><span style="font-weight: 300;"> Profil von </span><%=username%></h2>
+        </div>
+
+        <div class="content">
 
             <div class="left">
                 <img class="profilpic" src="/icons/delete.png" alt="">
@@ -28,15 +29,16 @@
 
             <div class="right">
                 
-                
-                    Passwort ändern
-                 
-                        <form action="change" method="POST">
-                            <input class="textf" type="password" name="pw_old" id="pw-old" placeholder="Altes Passwort"><br>
-                            <input class="textf" type="password" name="pw_new" id="pw-new" placeholder="Neues Passwort"><br>
-                            <input class="textf" type="password" name="pw_rep" id="pw-rep" placeholder="Passwort wiederholen"><br>
-                            <input type="checkbox" name="cleartext" id="cleartext" onchange="show_pw('pw-old'); show_pw('pw-new'); show_pw('pw-rep');">
+                <div class="profilform">
+                        <form class="formular" action="change" method="POST">
+                            <h4>Passwort ändern</h4>
+
+                            <input class="textf" type="password" name="pw_old" id="pw-old" placeholder="Altes Passwort">
+                            <input class="textf" type="password" name="pw_new" id="pw-new" placeholder="Neues Passwort">
+                            <input class="textf" type="password" name="pw_rep" id="pw-rep" placeholder="Passwort wiederholen">
+                            <br>
                             <label for="cleartext">
+                                <input type="checkbox" name="cleartext" id="cleartext" onchange="show_pw('pw-old'); show_pw('pw-new'); show_pw('pw-rep');">
                                 <span class="cleartext">Passwort anzeigen</span>
                             </label>
                             <div class="error-msg">
@@ -44,28 +46,26 @@
                             </div>
                             <input class="btn" type="submit" name="" id="">
                         </form>
-                    </div>
-                    <br>
-                    Profil löschen
-                    <form action="delete" method="POST">
-                        <input type="password" name="password" id="password" placeholder="Passwort"><br>
-                        <label for="cleartext"><span class="cleartext">Passwort anzeigen</span>
-                            <input type="checkbox" name="cleartext" id="cleartext" onchange="show_pw('password'); ">
-                        </label><br>
-                        <div class="error-msg">
-                            <p><%= typeof err_msg != 'undefined' ? err_msg : '' %></p>
-                        </div>
-                        <input type="submit" name="" id="">
-                    </form>
-              
-                <br>
-                <%= typeof scs_msg !='undefined' ? scs_msg : '' %>
-
-                <a href="/profile">Zurück</a>
-
-
+                        <br>
+                        <form class="formular" action="delete" method="POST">
+                            <h4>Profil löschen</h4>
+                            <input class="textf" type="password" name="password" id="password" placeholder="Passwort">
+                            <br>
+                            <label for="cleartext">
+                                <input type="checkbox" name="cleartext" id="cleartext" onchange="show_pw('password'); ">
+                                <span class="cleartext">Passwort anzeigen</span>
+                            </label>
+                            <div class="error-msg">
+                                <p><%= typeof err_msg != 'undefined' ? err_msg : '' %></p>
+                            </div>
+                            <input class="btn" type="submit" name="" id="">
+                        </form>
+           
+                    <%= typeof scs_msg !='undefined' ? scs_msg : '' %>
+                </div>
             </div>
         </div>
+
     </main>
     <script src="/scripts/register.js"></script>
 </body>

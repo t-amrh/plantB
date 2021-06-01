@@ -5,30 +5,54 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Plant B</title>
-        <link rel="stylesheet" href="/css/style-logreg.css">
+
         <link rel="preconnect" href="https://fonts.gstatic.com"> 
         <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Montserrat&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://use.typekit.net/tal5phu.css">
         <link rel="stylesheet" href="/css/style2.css">
     </head>
     <body>
-        <% if (userid) { %>
-            <%- include('partials/navbar_loggedin') %>
-        <% } else { %>
-            <%- include('partials/navbar_loggedout') %>
-        <% } %>
+        <%- include('partials/navbar_loggedin') %>
+
         <main>
-                <div>
-                    <a href="/question/create">Frage erstellen</a>
+            <div class="overview">
+
+                <div class="headline" >
+                    <h2>Fragen</h2>
+                </div>
+                <br>
+                <div class="createlink">
+                    <a  href="/question/create">+ Frage erstellen</a>
+                </div>
+
+                
+
                 <% for (let i=0; i < questions.length; i++) { %>
-                    <div id="question">
-                        <br>
-                        <h2><a href="/question/<%=questions[i].id%>"><%= questions[i].title  %></a></h2>
-                        <h4><%= questions[i].tstamp %> von <%= questions[i].name || username %></h4>
-                        <br>
+                    
+                    <div class="post">
+                        <div class="postpic">
+                            <img src="/<%=questions[i].img%>" alt=" " class="smallpic">
+                        </div>
+                    <a href="/question/<%=questions[i].id%>">
+                        <div class="posttxt"> 
+                            <h2><%= questions[i].title  %></h2>
+                            <p><%= questions[i].tstamp %> von <%= questions[i].name || username %></p>
+                        </div>
+                    </a>
                     </div>
+               
                 <% } %>
-                <a href="/welcome">Zurück</a>
+
+                <br>
+                <br>
+                <div class="backlink">
+                <a href="/profile">Zurück</a>
+                </div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
             </div>
         </main> 
        

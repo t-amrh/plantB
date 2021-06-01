@@ -31,7 +31,7 @@ router.get('/:id/posts', auth, perm,  (req, res) => {
         if (err) { console.error(err.message) };
 
         if (posts && posts.length > 0)
-            res.render('plantoverview', {posts, username: req.session.user.name});
+            res.render('plant_overview', {posts, username: req.session.user.name});
         else    
             res.redirect('/profile')
     })
