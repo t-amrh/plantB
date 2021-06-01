@@ -103,7 +103,7 @@ app.post('/login',
             id: req.body.id,
             loggedin: true
         };
-        res.redirect('/welcome');
+        res.redirect('/profile/'+req.body.id);
     }
 );
 
