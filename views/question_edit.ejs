@@ -8,36 +8,46 @@
     <link rel="preconnect" href="https://fonts.gstatic.com"> 
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.typekit.net/tal5phu.css">
-    <link rel="stylesheet" href="css/style-logreg.css">
+    <link rel="stylesheet" href="/css/style2.css">
 
 </head>
 <body>
 
+    <%- include("partials/navbar_loggedin") %>
 
     <main>
-        <div class="container">
+        <div class="content">
 
             <div class="headline">
-
+                <h3>Bearbeite deine Frage</h3>
             </div>
         
-            <div class="container-main">
+            <div class="right">
 
-                <h3>Bearbeite deine Frage ...</h3>
-                <form action="/question/<%=typeof context != 'undefined' ? context.id : ''%>/edit" method="POST" name="question" id="question" enctype="multipart/form-data">
-                    <input type="text" name="title" class="textf" value="<%= typeof context != 'undefined' ? context.title : '' %>">
-                    <br>
-                    <textarea name="txt" id="txt" cols="50" rows="15"><%=typeof context != 'undefined' ? context.txt : ''%></textarea>
-                    <br>
-                    <input type="submit" class="btn">
-                </form>
+                <div class="formular">
+                    <form class="formular" action="/question/<%=typeof context != 'undefined' ? context.id : ''%>/edit" method="POST" name="question" id="question" enctype="multipart/form-data">
+                        <input type="text" name="title" class="textf" value="<%= typeof context != 'undefined' ? context.title : '' %>">
+                        <br>
+                        <textarea name="txt" id="txt" cols="50" rows="15"><%=typeof context != 'undefined' ? context.txt : ''%></textarea>
+                        <br>
+                        <input type="submit" class="btn">
+                    </form>
+                </div>
             </div>
 
-            <div class="container-head">
-                <h4>oder dein Bild </h4>
-                <input type="file" name="img" id="" accept="image/jpeg" form="question" >
+            <div class="left">
+                <div class="addpic">
+                    <div class="plus"> +  </div>
+                        <p> Ändere dein Bild</p>
+                    <input type="file" name="img" id="" accept="image/jpeg" form="question" >
+                </div>
             </div>
 
+            
+
+        </div>
+        <div class="backlink">
+            <a href="/question/<%=context.id%>">Zurück</a>
         </div>
 
     </main>

@@ -14,7 +14,9 @@ router.get('/', (req,res) => {
                 FROM 
                     users, questions 
                 WHERE 
-                    users.id = questions.userid`;
+                    users.id = questions.userid
+                ORDER BY
+                    tstamp DESC`;
     db.all(sql, (err, questions) => {
         if (err) { console.error(err.message) };
         let userid = req.session.user ? req.session.user.id : null;
@@ -85,7 +87,9 @@ router.get('/:id', (req, res) => {
                         WHERE 
                             questionid=?
                         AND 
-                            users.id=answers.userid`;
+                            users.id=answers.userid
+                        ORDER BY 
+                            votes DESC`;
             db.all(sql, [question.id], (err, answers) => {
                 if (err) { console.error(err.message) };
 
